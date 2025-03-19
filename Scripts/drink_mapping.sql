@@ -4,7 +4,8 @@ CREATE TABLE drink_mapping (
     map_code VARCHAR(50) NOT NULL,
     CONSTRAINT fk_drink_mapping FOREIGN KEY (drink_product_id)
     REFERENCES product(product_id),
-    -- Common for all table    
+    -- Common for all table
+	code VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,

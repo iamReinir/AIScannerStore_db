@@ -5,6 +5,7 @@ CREATE TABLE food_mapping (
     CONSTRAINT fk_food_mapping FOREIGN KEY (food_product_id)
     REFERENCES product(product_id),
     -- Common for all table
+	code VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,

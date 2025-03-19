@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/AIScannerStore_BE
+cd ~/AIScannerStore_db
 OUTPUT_FILE="init_db.sql"
 echo "Generate database script"
 
@@ -13,16 +13,16 @@ cat Scripts/product.sql >> $OUTPUT_FILE
 cat Scripts/drink_mapping.sql >> $OUTPUT_FILE
 cat Scripts/food_mapping.sql >> $OUTPUT_FILE
 cat Scripts/customer.sql >> $OUTPUT_FILE
-cat Scripts/inventory.sql >> $OUTPUT_FILE
-cat Scripts/inventory_log.sql >> $OUTPUT_FILE
-cat Scripts/inventory_log_item.sql >> $OUTPUT_FILE
+cat Scripts/product_in_store.sql >> $OUTPUT_FILE
+cat Scripts/inventory_note.sql >> $OUTPUT_FILE
+cat Scripts/inventory_item.sql >> $OUTPUT_FILE
 cat Scripts/wallet.sql >> $OUTPUT_FILE
 cat Scripts/wallet_transaction.sql >> $OUTPUT_FILE
+cat Scripts/deposit.sql >> $OUTPUT_FILE
 cat Scripts/vnp_transaction.sql >> $OUTPUT_FILE
 cat Scripts/pos_device.sql >> $OUTPUT_FILE
 cat Scripts/order.sql >> $OUTPUT_FILE
 cat Scripts/order_item.sql >> $OUTPUT_FILE
-cat Scripts/payment.sql >> $OUTPUT_FILE
 echo "COMMIT;" >> $OUTPUT_FILE
 
 # mock data
