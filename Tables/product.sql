@@ -5,6 +5,7 @@ CREATE TABLE product (
     product_image_url VARCHAR(255),
 	barcode VARCHAR(255),
     category_id UUID,
+	base_price DECIMAL(20,2),
     CONSTRAINT fk_product_of_category FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE SET NULL,
     -- Common for all table
 	code VARCHAR(255),

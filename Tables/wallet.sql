@@ -2,7 +2,7 @@ CREATE TABLE wallet (
     wallet_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     customer_id UUID NOT NULL,
     balance NUMERIC(20,2),
-	priority INT DEFAULT 0,
+	priority INT NOT NULL DEFAULT 0,
 	wallet_type VARCHAR(50) DEFAULT 'MAIN',
     CONSTRAINT fk_wallet_of_customer FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,
     -- Common for all table

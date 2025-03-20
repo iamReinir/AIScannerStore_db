@@ -1,4 +1,19 @@
-INSERT INTO public."order" (order_id,customer_id,device_id,staff_id,amount,state,image1,image2,image3,created_at,updated_at,is_deleted,is_suspended,old_order_id) VALUES
+INSERT INTO public."order" (
+	order_id,
+	customer_id,
+	device_id,
+	staff_id,
+	amount,
+	state,
+	image1,
+	image2,
+	image3,
+	created_at,
+	updated_at,
+	is_deleted,
+	is_suspended,
+	old_order_id
+) VALUES
 	 ('24962082-ea1a-4829-8a9d-bb35118649a1',NULL,'3fa85f64-5717-4562-b3fc-2c963f66a001',NULL,1480100.00,'CREATED','string10','string11','string12','2025-03-10 19:01:58.022566','2025-03-10 19:01:58.022567',false,false,NULL),
 	 ('ff718dc5-340c-4323-9b95-4391260b16d8','550e8400-e29b-41d4-a716-446655440000','3fa85f64-5717-4562-b3fc-2c963f66a001',NULL,1391200.00,'PAID','string1','string2','string3','2025-03-10 18:44:08.005092','2025-03-10 18:44:08.005094',false,false,NULL),
 	 ('67c10684-7479-4e6b-bcb0-1c7ac52b7475','550e8400-e29b-41d4-a716-446655440000','3fa85f64-5717-4562-b3fc-2c963f66a001',NULL,1215300.00,'PAID','string4','string5','string6','2025-03-10 18:58:50.07706','2025-03-10 18:58:50.077061',false,false,NULL),
@@ -18,6 +33,7 @@ INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,co
 	 ('9d665ce7-d5c8-4079-b1fe-7b15c8dc1d76','ff718dc5-340c-4323-9b95-4391260b16d8','a1b2c3d4-5678-90ab-cdef-123456789004','Cream Puff',2,49900.00,'2025-03-10 18:44:08.073168','2025-03-10 18:44:08.073169',false,false),
 	 ('b278fccb-1161-46dc-9619-b4b0a39afc2e','ff718dc5-340c-4323-9b95-4391260b16d8','a1b2c3d4-5678-90ab-cdef-123456789015','Can',2,30900.00,'2025-03-10 18:44:08.072782','2025-03-10 18:44:08.072783',false,false),
 	 ('eaf50af0-931b-4dca-a5b0-2ca7ee16f659','ff718dc5-340c-4323-9b95-4391260b16d8','a1b2c3d4-5678-90ab-cdef-123456789012','Beer Tiger',4,89900.00,'2025-03-10 18:44:08.054875','2025-03-10 18:44:08.054876',false,false);
+
 INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,count,unit_price,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('fe9263ff-892d-47ba-969f-86878fe42f23','ff718dc5-340c-4323-9b95-4391260b16d8','a1b2c3d4-5678-90ab-cdef-123456789007','Muffin',3,42900.00,'2025-03-10 18:44:08.073217','2025-03-10 18:44:08.073217',false,false),
 	 ('0e3e1b95-4b3a-4f68-957a-997204d2a712','67c10684-7479-4e6b-bcb0-1c7ac52b7475','a1b2c3d4-5678-90ab-cdef-123456789006','Donut',2,39900.00,'2025-03-10 18:58:50.084282','2025-03-10 18:58:50.084282',false,false),
@@ -29,6 +45,7 @@ INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,co
 	 ('91a08bba-ac10-4b35-952a-fa5a785f2048','67c10684-7479-4e6b-bcb0-1c7ac52b7475','a1b2c3d4-5678-90ab-cdef-123456789015','Can',1,30900.00,'2025-03-10 18:58:50.084185','2025-03-10 18:58:50.084185',false,false),
 	 ('a4bebb2b-c6d2-47ef-a079-b075f4115f97','67c10684-7479-4e6b-bcb0-1c7ac52b7475','a1b2c3d4-5678-90ab-cdef-123456789016','CocaCola',4,31900.00,'2025-03-10 18:58:50.084219','2025-03-10 18:58:50.084219',false,false),
 	 ('afde9ded-7005-4316-8cc3-f40165594ae4','67c10684-7479-4e6b-bcb0-1c7ac52b7475','a1b2c3d4-5678-90ab-cdef-123456789009','Sandwich',3,47900.00,'2025-03-10 18:58:50.084338','2025-03-10 18:58:50.084338',false,false);
+
 INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,count,unit_price,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('cdf99521-e42c-444f-865f-6635fb8d8bfb','67c10684-7479-4e6b-bcb0-1c7ac52b7475','a1b2c3d4-5678-90ab-cdef-123456789012','Beer Tiger',2,89900.00,'2025-03-10 18:58:50.084037','2025-03-10 18:58:50.084038',false,false),
 	 ('e23f216e-9de6-4b28-ac2d-dd2661488e54','67c10684-7479-4e6b-bcb0-1c7ac52b7475','a1b2c3d4-5678-90ab-cdef-123456789007','Muffin',1,42900.00,'2025-03-10 18:58:50.084303','2025-03-10 18:58:50.084304',false,false),
@@ -40,6 +57,7 @@ INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,co
 	 ('3c038fee-af3f-4344-aa87-a2cf19ba3529','307506a4-87a9-418d-97a6-43829f58f90a','a1b2c3d4-5678-90ab-cdef-123456789015','Can',1,30900.00,'2025-03-10 18:59:51.356637','2025-03-10 18:59:51.356637',false,false),
 	 ('3e7750c3-b549-4a2c-a060-7567c7d47cd8','307506a4-87a9-418d-97a6-43829f58f90a','a1b2c3d4-5678-90ab-cdef-123456789013','Boncha',2,25900.00,'2025-03-10 18:59:51.356588','2025-03-10 18:59:51.356588',false,false),
 	 ('dd2fef85-0c87-4f91-8ce9-a24570a000c7','307506a4-87a9-418d-97a6-43829f58f90a','a1b2c3d4-5678-90ab-cdef-123456789004','Cream Puff',3,49900.00,'2025-03-10 18:59:51.356677','2025-03-10 18:59:51.356677',false,false);
+
 INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,count,unit_price,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('de3a7d93-b66c-4d55-85a4-6b87101902ea','307506a4-87a9-418d-97a6-43829f58f90a','a1b2c3d4-5678-90ab-cdef-123456789008','Salted Egg Sponge Cake',1,51900.00,'2025-03-10 18:59:51.356781','2025-03-10 18:59:51.356781',false,false),
 	 ('f53ea42a-fe37-4470-9950-76d5043a38a6','307506a4-87a9-418d-97a6-43829f58f90a','a1b2c3d4-5678-90ab-cdef-123456789007','Muffin',3,42900.00,'2025-03-10 18:59:51.356723','2025-03-10 18:59:51.356723',false,false),
@@ -51,6 +69,7 @@ INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,co
 	 ('692e4dae-c57b-4165-8ec1-d20b979250dd','3b7605ff-d7c0-4a04-bb2b-0117889f87c6','a1b2c3d4-5678-90ab-cdef-123456789016','CocaCola',4,31900.00,'2025-03-10 19:00:44.534532','2025-03-10 19:00:44.534532',false,false),
 	 ('72bcdc1c-e85d-4613-b342-368472683e46','3b7605ff-d7c0-4a04-bb2b-0117889f87c6','a1b2c3d4-5678-90ab-cdef-123456789015','Can',2,30900.00,'2025-03-10 19:00:44.534506','2025-03-10 19:00:44.534506',false,false),
 	 ('9097dea3-18e2-4f73-b0de-2158f8f6a897','3b7605ff-d7c0-4a04-bb2b-0117889f87c6','a1b2c3d4-5678-90ab-cdef-123456789013','Boncha',2,25900.00,'2025-03-10 19:00:44.534427','2025-03-10 19:00:44.534428',false,false);
+
 INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,count,unit_price,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('92bd2b97-d9aa-4b2a-98b3-6e7b19e93ec1','3b7605ff-d7c0-4a04-bb2b-0117889f87c6','a1b2c3d4-5678-90ab-cdef-123456789007','Muffin',1,42900.00,'2025-03-10 19:00:44.534649','2025-03-10 19:00:44.534649',false,false),
 	 ('95c5c8fc-d8b3-4b9d-8d81-6b5d94526b97','3b7605ff-d7c0-4a04-bb2b-0117889f87c6','a1b2c3d4-5678-90ab-cdef-123456789008','Salted Egg Sponge Cake',4,51900.00,'2025-03-10 19:00:44.534668','2025-03-10 19:00:44.534668',false,false),
@@ -62,6 +81,7 @@ INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,co
 	 ('5a47d562-0aad-49af-a8f7-8b9b6d37279f','c49c3e2e-ceee-4732-9c5c-aea6fa7594b3','a1b2c3d4-5678-90ab-cdef-123456789008','Salted Egg Sponge Cake',3,51900.00,'2025-03-10 19:01:07.091074','2025-03-10 19:01:07.091074',false,false),
 	 ('87353834-fa87-4614-ad54-55f7ce0ff7f3','c49c3e2e-ceee-4732-9c5c-aea6fa7594b3','a1b2c3d4-5678-90ab-cdef-123456789012','Beer Tiger',1,89900.00,'2025-03-10 19:01:07.090629','2025-03-10 19:01:07.090629',false,false),
 	 ('880262b3-73d3-42f1-b898-234af18ed8e5','c49c3e2e-ceee-4732-9c5c-aea6fa7594b3','a1b2c3d4-5678-90ab-cdef-123456789005','Croissant',3,69900.00,'2025-03-10 19:01:07.091035','2025-03-10 19:01:07.091035',false,false);
+
 INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,count,unit_price,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('9468f6d3-ada9-4ad4-9d32-46827d6a76b6','c49c3e2e-ceee-4732-9c5c-aea6fa7594b3','a1b2c3d4-5678-90ab-cdef-123456789016','CocaCola',3,31900.00,'2025-03-10 19:01:07.090787','2025-03-10 19:01:07.090787',false,false),
 	 ('a34e74b4-33e8-4551-8772-420bb3fe64d5','c49c3e2e-ceee-4732-9c5c-aea6fa7594b3','a1b2c3d4-5678-90ab-cdef-123456789006','Donut',1,39900.00,'2025-03-10 19:01:07.091048','2025-03-10 19:01:07.091048',false,false),
@@ -73,6 +93,7 @@ INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,co
 	 ('478cf8ec-61c2-4c2f-8ce2-9c906e84b193','a7c7fe68-25dd-44ae-80e5-f298a51e6d1c','a1b2c3d4-5678-90ab-cdef-123456789004','Cream Puff',2,49900.00,'2025-03-10 19:01:36.240523','2025-03-10 19:01:36.240523',false,false),
 	 ('5cc66b69-9dee-4bcf-997e-0a96875bc7b7','a7c7fe68-25dd-44ae-80e5-f298a51e6d1c','a1b2c3d4-5678-90ab-cdef-123456789009','Sandwich',2,47900.00,'2025-03-10 19:01:36.240558','2025-03-10 19:01:36.240558',false,false),
 	 ('6ead74bc-3de2-4a5d-b2e1-e36621978acd','a7c7fe68-25dd-44ae-80e5-f298a51e6d1c','a1b2c3d4-5678-90ab-cdef-123456789005','Croissant',1,69900.00,'2025-03-10 19:01:36.240532','2025-03-10 19:01:36.240532',false,false);
+
 INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,count,unit_price,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('b15cae1b-4970-40ae-ad71-f69dcbcb6666','a7c7fe68-25dd-44ae-80e5-f298a51e6d1c','a1b2c3d4-5678-90ab-cdef-123456789006','Donut',4,39900.00,'2025-03-10 19:01:36.240539','2025-03-10 19:01:36.240539',false,false),
 	 ('ce2f4d48-bdf3-41ab-8c14-fc6c3f2e2c1b','a7c7fe68-25dd-44ae-80e5-f298a51e6d1c','a1b2c3d4-5678-90ab-cdef-123456789016','CocaCola',3,31900.00,'2025-03-10 19:01:36.240511','2025-03-10 19:01:36.240511',false,false),
@@ -84,6 +105,7 @@ INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,co
 	 ('272bfec1-2cce-411b-aa17-82aacdf711fd','24962082-ea1a-4829-8a9d-bb35118649a1','a1b2c3d4-5678-90ab-cdef-123456789004','Cream Puff',3,49900.00,'2025-03-10 19:01:58.02905','2025-03-10 19:01:58.02905',false,false),
 	 ('27af2718-62e6-4177-b66b-df855a2a5c64','24962082-ea1a-4829-8a9d-bb35118649a1','a1b2c3d4-5678-90ab-cdef-123456789008','Salted Egg Sponge Cake',1,51900.00,'2025-03-10 19:01:58.029065','2025-03-10 19:01:58.029065',false,false),
 	 ('2e87bc6b-766f-4c1e-aee4-60b3520e812d','24962082-ea1a-4829-8a9d-bb35118649a1','a1b2c3d4-5678-90ab-cdef-123456789015','Can',1,30900.00,'2025-03-10 19:01:58.029038','2025-03-10 19:01:58.029038',false,false);
+
 INSERT INTO public.order_item (order_item_id,order_id,product_id,product_name,count,unit_price,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('3440cd02-c085-41df-9679-a4b03af0bb3c','24962082-ea1a-4829-8a9d-bb35118649a1','a1b2c3d4-5678-90ab-cdef-123456789007','Muffin',3,42900.00,'2025-03-10 19:01:58.029062','2025-03-10 19:01:58.029062',false,false),
 	 ('3b0a94b4-8d68-407a-ab84-8ccc493c0f54','24962082-ea1a-4829-8a9d-bb35118649a1','a1b2c3d4-5678-90ab-cdef-123456789012','Beer Tiger',4,89900.00,'2025-03-10 19:01:58.028984','2025-03-10 19:01:58.028985',false,false),

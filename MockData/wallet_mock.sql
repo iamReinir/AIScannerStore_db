@@ -6,9 +6,12 @@ INSERT INTO wallet (customer_id, wallet_id, balance) VALUES
 ('7d793037-a124-486c-91f8-49a8b8b4f9da', '9f3d7b2a-5c8e-4f1d-6a2c-7e8b4a9f3c15', 50000);
 
 INSERT INTO wallet
-	(wallet_id, customer_id, balance, created_at, updated_at, is_deleted, is_suspended)
-VALUES('0195836d-7063-7e95-99bc-e59da39bb55e', '65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 3000000000.00, '2025-03-11 18:19:02.369', '2025-03-11 18:19:02.369', false, false);
+	(wallet_id, customer_id, balance, priority, wallet_type)
+VALUES('0195836d-7063-7e95-99bc-e59da39bb55e','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 3000000, 0, 'MAIN');
 
+INSERT INTO wallet
+	(wallet_id, customer_id, balance, priority, wallet_type)
+VALUES('0195836d-7063-7e95-99bc-e59da39bb55f','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 60000, 1, 'PROMO');
 
 INSERT INTO wallet_transaction (wallet_id, amount, status, type, description, created_at, updated_at) VALUES
 ('0195836d-7063-7e95-99bc-e59da39bb55e', 150000.00, 'SUCCESS', 'DEPOSIT', 'Salary deposit', '2025-03-11 19:00:00', '2025-03-11 19:00:00'),

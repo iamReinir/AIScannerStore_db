@@ -11,3 +11,4 @@ CREATE TABLE deposit (
     is_deleted BOOLEAN DEFAULT FALSE,
     is_suspended BOOLEAN DEFAULT FALSE    
 );
+
