@@ -1,5 +1,5 @@
 CREATE TABLE deposit (
-    deposit UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    deposit_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     customer_id UUID NOT NULL,
     amount NUMERIC(20,2),
 	status VARCHAR(50),

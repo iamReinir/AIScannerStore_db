@@ -26,7 +26,7 @@ VALUES
     ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789024', 27900, 30);
 
 
-INSERT INTO product_in_store (store_id, product_id, price)
+INSERT INTO product_in_store (store_id, product_id, price, stock)
 VALUES
     ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789001', 60900, 30),
     ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789002', 62900, 30),
@@ -53,7 +53,7 @@ VALUES
     ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789023', 51900, 30),
     ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789024', 28900, 30);
 
-INSERT INTO product_in_store (store_id, product_id, price)
+INSERT INTO product_in_store (store_id, product_id, price, stock)
 VALUES
     ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789001', 57900, 30),
     ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789002', 59900, 30),

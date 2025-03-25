@@ -1,7 +1,7 @@
 CREATE TABLE card (
     card_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     customer_id UUID,
-	card_data_hash VARCHAR(255) NOT NULL,
+	card_data_hash VARCHAR(255),
     expiration_date TIMESTAMP,
 	"type" VARCHAR(50),
 	CONSTRAINT fk_card_of_customer FOREIGN KEY (customer_id)
