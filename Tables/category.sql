@@ -3,6 +3,7 @@ CREATE TABLE category (
     category_name VARCHAR(255) NOT NULL,
     category_description TEXT,
     -- Common for all table
+	code VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,

@@ -21,7 +21,7 @@ VALUES
     ('16fd2706-8baf-433b-82eb-8c7fada847da', 'Riverside Mart', '321 River Road, Riverside'),
     ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 'Hilltop Supplies', '654 Pine Street, Hilltop');
 
-INSERT INTO pos_device (device_id, store_id, device_code) VALUES
+INSERT INTO pos_device (device_id, store_id, code) VALUES
 ('3fa85f64-5717-4562-b3fc-2c963f66a001', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'TEST_DEV_1'),
 ('3fa85f64-5717-4562-b3fc-2c963f66a002', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'TEST_DEV_2'),
 ('3fa85f64-5717-4562-b3fc-2c963f66a003', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'TEST_DEV_3'),

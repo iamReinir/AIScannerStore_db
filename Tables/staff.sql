@@ -6,7 +6,8 @@ CREATE TABLE staff (
     password_hash VARCHAR(255) NOT NULL,
     "role" varchar(50),
     store_id UUID,
-    -- Common for all table    
+    -- Common for all table
+	code VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -21,10 +22,12 @@ INSERT INTO staff (
     staff_name,    
     staff_email,
     password_hash,
-    "role"
+    "role",
+	code
 ) VALUES (
     '03485000-6353-4e33-b878-32328d89ba51',
     'admin',
     'admin',
     'AQAAAAIAAYagAAAAEM5qkMuCZU6mxSl3jhkZ8csttfpfjuTt8ehoAbSYVQNjRxhJwAATFQjkzeUPA/B7Wg==',
-    'ADMIN');
+    'ADMIN',
+	'ADMIN');

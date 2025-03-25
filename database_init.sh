@@ -1,5 +1,7 @@
 #!/bin/bash
-cd ~/AIScannerStore_BE
+
+cd ~/AIScannerStore_db
+cp ~/settings/ai_scanner_store.json ./appsettings.json
 
 # This file is used for the server's service unit file. 
 # Don't change it unless you have a good reason to.
@@ -14,7 +16,6 @@ DB_NAME=$(jq -r '.Database.Name' $SETTING)
 echo "Creating init_db.sql..."
 chmod +x ./generate_sql.sh
 /bin/bash ./generate_sql.sh
-
 
 # clean and initialize the database
 echo "initializing database..."
