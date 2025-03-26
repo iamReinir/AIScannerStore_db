@@ -14,6 +14,8 @@ CREATE TABLE "order" (
     CONSTRAINT fk_manual_order FOREIGN KEY (staff_id) REFERENCES staff(staff_id) ON DELETE SET NULL,
     CONSTRAINT fk_order_of_card FOREIGN KEY (card_id) REFERENCES card(card_id) ON DELETE SET NULL,
     CONSTRAINT fk_order_from_device FOREIGN KEY (device_id) REFERENCES pos_device(device_id) ON DELETE SET NULL,
+	CONSTRAINT fk_old_order FOREIGN KEY (old_order_id) REFERENCES "order"(order_id) ON DELETE SET NULL,
+    CONSTRAINT chk_no_self_ref CHECK (old_order_id IS NULL OR old_order_id <> order_id),
     -- Common for all table
 	code VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
