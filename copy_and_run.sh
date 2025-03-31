@@ -1,7 +1,7 @@
 #!/bin/bash
 # Generate the .sql file
 
-SERVER1=server1-common-lan
+SERVER1=server1-common
 echo "Creating init_db.sql..."
 ./generate_sql.sh
 

@@ -25,10 +25,9 @@ cat Tables/wallet.sql >> $OUTPUT_FILE
 cat Tables/wallet_transaction.sql >> $OUTPUT_FILE
 cat Tables/vnp_transaction.sql >> $OUTPUT_FILE
 cat Tables/order_item.sql >> $OUTPUT_FILE
-
-cat Functions/generate_code.sql
-echo "COMMIT;" >> $OUTPUT_FILE
-
+cat Tables/promotion.sql >> $OUTPUT_FILE
+# Function
+# cat Functions/generate_code.sql
 # mock data
 cat MockData/product_mock.sql >> $OUTPUT_FILE
 cat MockData/store_mock.sql >> $OUTPUT_FILE
@@ -39,4 +38,6 @@ cat MockData/card_mock.sql >> $OUTPUT_FILE
 cat MockData/order_mock.sql >> $OUTPUT_FILE
 cat MockData/deposit_mock.sql >> $OUTPUT_FILE
 cat MockData/wallet_mock.sql >> $OUTPUT_FILE
+cat MockData/promotion_mock.sql >> $OUTPUT_FILE
+echo "COMMIT;" >> $OUTPUT_FILE
 

@@ -4,6 +4,7 @@ CREATE TABLE wallet (
     balance NUMERIC(20,2),
 	priority INT NOT NULL DEFAULT 0,
 	wallet_type VARCHAR(50) DEFAULT 'MAIN',
+	expire_at TIMESTAMP DEFAULT NULL,
     CONSTRAINT fk_wallet_of_customer FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,
     -- Common for all table
 	code VARCHAR(255),
