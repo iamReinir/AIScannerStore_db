@@ -120,7 +120,8 @@ CREATE TABLE customer (
     customer_phone VARCHAR(20),
     customer_email VARCHAR(255) UNIQUE NOT NULL,
     image_url VARCHAR(255),
-    password_hash VARCHAR(255) NOT NULL,    
+    password_hash VARCHAR(255) NOT NULL,
+	is_email_confirmed BOOL DEFAULT FALSE,
     -- Common for all table
 	code VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -306,6 +307,35 @@ CREATE TABLE inventory_note_item (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,
     is_suspended BOOLEAN DEFAULT FALSE
+);CREATE TABLE password_reset_attempt (
+    attempt_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    customer_id UUID,
+	hashed_token TEXT NOT NULL,
+    expire_time TIMESTAMP NOT NULL DEFAULT NOW() + INTERVAL '15 minutes',
+	is_succeed BOOL DEFAULT FALSE,
+	email VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_attempt_of_customer FOREIGN KEY (customer_id)
+    REFERENCES customer(customer_id) ON DELETE SET NULL,
+    -- Common for all table
+	code VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    is_suspended BOOLEAN DEFAULT FALSE   
+);CREATE TABLE email_confirm_attempt (
+    attempt_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    customer_id UUID NOT NULL,
+	hashed_token TEXT NOT NULL,
+    expire_time TIMESTAMP NOT NULL DEFAULT NOW() + INTERVAL '1 hour',
+	is_succeed BOOL DEFAULT FALSE,
+    CONSTRAINT fk_attempt_of_customer FOREIGN KEY (customer_id)
+    REFERENCES customer(customer_id) ON DELETE SET NULL,
+    -- Common for all table
+	code VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    is_suspended BOOLEAN DEFAULT FALSE
 );INSERT INTO category (category_id, category_name, category_description) VALUES
 ('f1a2b3c4-5678-90ab-cdef-123456789001', 'Bread & Pastries', 'A selection of freshly baked bread, croissants, and sandwiches.'),
 ('f1a2b3c4-5678-90ab-cdef-123456789002', 'Cakes & Desserts', 'Delicious cakes, muffins, and pastries for any occasion.'),
@@ -415,87 +445,102 @@ INSERT INTO staff (staff_id, staff_name, staff_phone, staff_email, "role", passw
 	('d8d0e33a-a490-4fce-beee-fcad5eaef9a4', 'TrungNX', NULL, 'trung@mail.com', 'STORE_MANAGER', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111')
     ;
 
-INSERT INTO product_in_store (store_id, product_id, price, stock)
+INSERT INTO product_in_store (
+	product_in_store_id,
+	store_id,
+	product_id,
+	price,
+	stock)
 VALUES
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789001', 59900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789002', 61900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789003', 58900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789004', 49900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789005', 69900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789006', 39900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789007', 42900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789008', 51900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789009', 47900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789010', 45900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789011', 72900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789012', 89900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789013', 25900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789014', 34900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789015', 30900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789016', 31900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789017', 32900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789018', 28900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789019', 57900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789020', 79900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789021', 48900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789022', 45900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789023', 50900, 30),
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789024', 27900, 30);
+    ('572d8467-2e33-416c-baa6-9da8b25ceedd', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789001', 19900, 30),
+    ('963c6740-5e92-4b5c-9c9a-d8bed451e429', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789002', 20900, 30),
+    ('01dfcc2c-c7c0-4a40-bab9-7e5d49be7ef9', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789003', 18900, 30),
+    ('fffc5db9-dc6e-43e8-9b29-8b500791f35f', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789004', 19900, 30),
+    ('d64fbd56-f9b3-4788-a6e9-f3e5a480e6f8', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789005', 19900, 30),
+    ('1566d6e1-0c10-4794-886b-f15cb1a7a74d', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789006', 19900, 30),
+    ('a9d09d7e-e7f9-440b-a7aa-fe023d8730fb', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789007', 12900, 30),
+    ('347f8b62-1bb0-495f-998d-0ffeee470d0a', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789008', 11900, 30),
+    ('4d60e994-87cf-445f-9015-0951998157df', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789009', 17900, 30),
+    ('a6a3d453-de6d-4905-940d-f4d2ad2cd7f4', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789010', 15900, 30),
+    ('6c2b5115-ae28-44de-8f05-e6f796947d09', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789011', 12900, 30),
+    ('003e474d-e5e6-47fd-ab3d-95ac358560da', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789012', 19900, 30),
+    ('c4612c3a-e977-4597-bf6d-9ca23a60fdd5', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789013', 25900, 30),
+    ('953c8077-a15e-431a-a238-64966ff0a414', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789014', 14900, 30),
+    ('aab9c027-b1e2-490c-9d73-29f845d4671f', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789015', 10900, 30),
+    ('a8698aa1-b1ad-4d15-a23c-acd0300e9c00', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789016', 11900, 30),
+    ('81bb0fc4-039c-464d-a744-8f2267458e36', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789017', 12900, 30),
+    ('aa923b69-5fdb-40fe-ab56-decda440330f', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789018', 28900, 30),
+    ('cc544259-6cc3-48d0-ba1b-da22715c6f2b', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789019', 17900, 30),
+    ('864e02dd-eb66-4af3-9873-e7606d9ccdde', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789020', 19900, 30),
+    ('ad9c2c20-8da2-47a0-831d-94a69cc424c2', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789021', 18900, 30),
+    ('bbb3df82-488a-41ea-8e76-ab69f3b1e75e', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789022', 15900, 30),
+    ('c1acbd31-f1f9-4e71-bcd7-3984ff849738', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789023', 20900, 30),
+    ('cdc6f452-bb70-4c86-9e4f-7a49fc335f17', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'a1b2c3d4-5678-90ab-cdef-123456789024', 17900, 30);
 
 
-INSERT INTO product_in_store (store_id, product_id, price, stock)
+INSERT INTO product_in_store (
+	product_in_store_id,
+	store_id,
+	product_id,
+	price,
+	stock)
 VALUES
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789001', 60900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789002', 62900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789003', 59900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789004', 50900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789005', 70900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789006', 38900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789007', 43900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789008', 52900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789009', 46900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789010', 46900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789011', 73900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789012', 90900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789013', 26900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789014', 33900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789015', 31900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789016', 32900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789017', 31900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789018', 29900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789019', 58900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789020', 80900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789021', 49900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789022', 46900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789023', 51900, 30),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789024', 28900, 30);
+    ('ac59681b-71e3-47f2-b77e-4ddc2fe2e0c4', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789001', 16900, 30),
+    ('8b3ca2b2-3e30-4b4a-994c-84c1e4a916c9', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789002', 16900, 30),
+    ('05ec7896-a8e4-4a74-99fe-51e81ab12a3d', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789003', 15900, 30),
+    ('1e623b3b-5581-48d3-86f4-a27f8907846a', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789004', 10900, 30),
+    ('a0a11812-fcf5-4ca2-b6cc-7621d9221262', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789005', 17900, 30),
+    ('1e2363ad-4b23-44a7-84cb-87dd1e269819', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789006', 18900, 30),
+    ('6361db86-aa32-439d-8916-9528a9fc532c', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789007', 13900, 30),
+    ('258c55ea-46c1-486f-a69c-dc32b331b361', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789008', 12900, 30),
+    ('343ace46-1312-4e03-8eee-d85cc412b288', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789009', 14900, 30),
+    ('abf396de-0f69-46c6-88e3-a0d45bac9109', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789010', 14900, 30),
+    ('0de0f1fb-31ee-4941-b65e-ec5a2b18542e', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789011', 13900, 30),
+    ('eb7f09a8-af0e-460b-aae0-00d48f31b4d8', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789012', 10900, 30),
+    ('75425f53-c4c3-4b5b-9cd0-8532279a74be', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789013', 26900, 30),
+    ('7828b3dc-a23f-4fb2-ada6-cd4e1f484792', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789014', 13900, 30),
+    ('5e05a556-a638-41f1-a53f-a60e81612ef0', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789015', 11900, 30),
+    ('20d87da2-005e-4108-b773-974ee924ece8', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789016', 12900, 30),
+    ('ce6811b5-0060-4926-8c70-a23b6c5524ad', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789017', 11900, 30),
+    ('1c96f3b3-6552-4208-9619-1173c53829eb', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789018', 20900, 30),
+    ('c5b30347-1f7c-476c-8cc9-5b3ec4771894', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789019', 18900, 30),
+    ('c933ef2a-bfee-4830-ad45-cf280a7844b3', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789020', 30900, 30),
+    ('4d542f81-000c-469e-8404-bcc770ac1ca6', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789021', 19900, 30),
+    ('e2dcd193-5d5b-4f02-bec6-406aae98ccb6', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789022', 26900, 30),
+    ('98ce05b5-a214-4ede-86ca-293f5a79b03b', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789023', 21900, 30),
+    ('bf61e311-a78d-440b-9250-642f263ecf89', 'b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'a1b2c3d4-5678-90ab-cdef-123456789024', 28900, 30);
 
-INSERT INTO product_in_store (store_id, product_id, price, stock)
+INSERT INTO product_in_store (
+	product_in_store_id,
+	store_id,
+	product_id,
+	price,
+	stock)
 VALUES
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789001', 57900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789002', 59900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789003', 57900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789004', 48900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789005', 68900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789006', 36900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789007', 41900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789008', 50900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789009', 45900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789010', 44900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789011', 71900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789012', 88900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789013', 25900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789014', 32900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789015', 30900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789016', 31900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789017', 30900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789018', 28900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789019', 56900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789020', 78900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789021', 47900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789022', 44900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789023', 49900, 30),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789024', 27900, 30);
+    ('b1ec4776-2858-4c6e-9f00-ac151720038c', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789001', 27900, 30),
+    ('51dcdb35-5ff5-4bcb-8c7b-daea75553501', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789002', 19900, 30),
+    ('6a9c6e15-d136-4fb1-8e1e-cd39aa5d314a', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789003', 17900, 30),
+    ('314630ec-1543-451a-aee9-5310331843fe', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789004', 18900, 30),
+    ('75c07dc1-46f1-4ab9-a5a9-113059924c75', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789005', 18900, 30),
+    ('9b584d2c-61f2-4618-855e-51f5cefc0598', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789006', 16900, 30),
+    ('ec580d71-68fc-4476-806c-edcf47f21f45', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789007', 21900, 30),
+    ('d7ba5c75-979a-4e87-85ac-7f2e787e25af', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789008', 20900, 30),
+    ('8179ac3b-91eb-4bd3-a3a6-391c48a63c87', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789009', 35900, 30),
+    ('71e1297c-8a25-4f25-9040-34439ba81bd1', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789010', 14900, 30),
+    ('7b09061c-ff4d-43eb-9540-8d3cd16b36f9', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789011', 11900, 30),
+    ('b38782f6-9ec5-47a8-966b-a5ae02f146fd', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789012', 28900, 30),
+    ('003b2606-7e90-4e43-b688-b848cac7be1d', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789013', 25900, 30),
+    ('16b22e21-399f-4c10-8832-84a2e90942ac', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789014', 32900, 30),
+    ('5b6acece-51b1-432b-8b23-b472b48524f0', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789015', 30900, 30),
+    ('b85b515e-df14-49e9-b19c-c3b3cdb7329c', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789016', 31900, 30),
+    ('060eff79-093f-4ef0-89c4-79b34fc1fbd4', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789017', 30900, 30),
+    ('6d0e10ca-51f4-4c0c-8fec-c5cf5161affc', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789018', 28900, 30),
+    ('55340c2d-07af-4de3-98e4-f61ec67fae82', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789019', 26900, 30),
+    ('b71df378-4d40-4047-88bd-d9a51bb05b1a', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789020', 18900, 30),
+    ('a7d3b610-fd37-459f-bab8-19a2dfaea15a', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789021', 27900, 30),
+    ('1cb5afb4-34de-465e-8723-ce77a7cadd0c', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789022', 24900, 30),
+    ('3c442843-d5cd-4f31-a0cb-9af7b3c8f086', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789023', 29900, 30),
+    ('f05774a6-a890-49e1-928c-d4bcf9578743', 'c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'a1b2c3d4-5678-90ab-cdef-123456789024', 27900, 30);
 
 
 INSERT INTO customer (customer_id, customer_name, customer_email, customer_phone, image_url, password_hash, code) VALUES
@@ -503,7 +548,7 @@ INSERT INTO customer (customer_id, customer_name, customer_email, customer_phone
 ('6f9619ff-8b86-d011-b42d-00c04fc964ff', 'Bob Smith', 'bob@example.com', '987-654-3210', '', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'CUST91827364'),
 ('1b4e28ba-2fa1-11d2-883f-0016d3cca427', 'Charlie Brown', 'charlie@example.com', '555-123-4567', '', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'CUST50392718'),
 ('110ec58a-a0f2-4ac4-8393-c866d813b8d1', 'Diana Prince', 'diana@example.com', '444-555-6666', '', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'CUST37482019'),
-('7d793037-a124-486c-91f8-49a8b8b4f9da', 'Edward Nigma', 'edward@example.com', '222-333-4444', '', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'CUST83749202');
+('7d793037-a124-486c-91f8-49a8b8b4f9da', 'TrungNX', 'trungnx@mail.com', '222-333-4444', '', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'CUST83749202');
 
 INSERT INTO customer (customer_id, customer_name, customer_phone, customer_email, image_url, password_hash, code) VALUES
 ('65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 'Lợi Nguyễn', '1234567', 'dongloi2504@gmail.com', '', 'AQAAAAIAAYagAAAAEO4oH0xNjb5agvpL1sPzytxzqq0Yz1UxApqBWKzxgDyDvLNW4N+8HHH7JSQWfNykTw==', 'CUST29574382');INSERT INTO card (card_id, customer_id, expiration_date, "type")
@@ -514,6 +559,12 @@ VALUES
     ('d4e5f6a7-b8c9-4012-def0-4567890123de', '110ec58a-a0f2-4ac4-8393-c866d813b8d1', '2026-01-01 00:00:00', 'VIRTUAL'),
     ('e5f6a7b8-c9d0-4123-ef01-5678901234ef', '7d793037-a124-486c-91f8-49a8b8b4f9da', '2026-01-01 00:00:00', 'VIRTUAL'),
     ('f6a7b8c9-d0e1-4234-f012-6789012345f0', '65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', '2026-01-01 00:00:00', 'VIRTUAL');
+
+
+INSERT INTO card (card_id, customer_id, expiration_date, "type")
+VALUES 
+    ('162ae899-cd71-4c3b-ba92-06af95c28f98', '7d793037-a124-486c-91f8-49a8b8b4f9da', '2026-01-01 00:00:00', 'PHYSICAL');
+
 INSERT INTO public."order" (order_id,card_id,device_id,staff_id,total,status) VALUES
 	 ('24962082-ea1a-4829-8a9d-bb35118649a1','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', NULL,1480100.00,'PAID'),
 	 ('ff718dc5-340c-4323-9b95-4391260b16d8','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', NULL,1391200.00,'FINISHED'),
@@ -626,7 +677,8 @@ INSERT INTO deposit (deposit_id, customer_id, amount, status, code) VALUES
 ('6f9619ff-8b86-d011-b42d-00c04fc964ff', 'a8c1f2d3-7e5b-42f6-9a9c-1d4e8b3f6c27', 250000.00, 0, 'MAIN'),
 ('1b4e28ba-2fa1-11d2-883f-0016d3cca427', 'd4f8a2b9-3e7c-4a1d-8c5f-6b2e9f7a3c81', 100000.00, 0, 'MAIN'),
 ('110ec58a-a0f2-4ac4-8393-c866d813b8d1', 'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a', 750000.00, 0, 'MAIN'),
-('7d793037-a124-486c-91f8-49a8b8b4f9da', '9f3d7b2a-5c8e-4f1d-6a2c-7e8b4a9f3c15', 50000.00, 0, 'MAIN');
+('7d793037-a124-486c-91f8-49a8b8b4f9da', '9f3d7b2a-5c8e-4f1d-6a2c-7e8b4a9f3c15', 850000.00, 0, 'MAIN');
+
 
 INSERT INTO wallet (wallet_id, customer_id, balance, priority, wallet_type) VALUES
 	('0195836d-7063-7e95-99bc-e59da39bb55e','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 3800000.00, 0, 'MAIN'),
@@ -644,4 +696,35 @@ INSERT INTO wallet_transaction (wallet_id, amount, type, order_id, deposit_id, d
 ('0195836d-7063-7e95-99bc-e59da39bb55f', -8000.00, 'ORDER_DEDUCT','ff718dc5-340c-4323-9b95-4391260b16d8',NULL,'Mobile recharge', '2025-03-11 20:00:00', '2025-03-11 20:00:00');INSERT INTO promotion (promotion_id, detail, "type", code, is_suspended) VALUES
 	('550e8400-e29b-41d4-a716-446655440000', '{"Percentage":10.5,"BonusWalletLifeTimeInHours":1,"AppliedDayOfWeek":"MON"}', 'DEPOSIT_PROMO_V1', 'SPRING2025', false),
 	('550e8400-e29b-41d4-a716-446655440001', '{}', 'DEPOSIT_PROMO_V1', 'TEST_PROMOTION', true),
-	('550e8400-e29b-41d4-a716-446655440002', '{}', 'DEPOSIT_PROMO_V1', 'PROMO789', true);COMMIT;
+	('550e8400-e29b-41d4-a716-446655440002', '{}', 'DEPOSIT_PROMO_V1', 'PROMO789', true);INSERT INTO inventory_note (inventory_note_id,store_id,staff_id,"type",image_url,"description",code)
+VALUES
+	('69c89ae3-3d7f-44a1-bdcc-98df64f39486','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','d8d0e33a-a490-4fce-beee-fcad5eaef9a4','CHANGE','https://reinir.mooo.com/files/remi.jpg','Inventory change mock data','NOTE000000'),
+	('46fb8481-a0b4-43f4-8758-355b0d1f3bc5','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','d8d0e33a-a490-4fce-beee-fcad5eaef9a4','AUDIT','https://reinir.mooo.com/files/food.jpg','Inventory audit mock data','NOTE000001'),
+	('d911f814-ad30-4248-bc2d-ee09ac0668dd','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','0a5c236e-ff54-449e-834c-99c113b3b582','CHANGE','https://reinir.mooo.com/files/food.jpg','Inventory change mock data','NOTE000002'),
+	('cc407916-b4b7-434f-b671-7dd18d9c7bdf','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','0a5c236e-ff54-449e-834c-99c113b3b582','AUDIT','https://reinir.mooo.com/files/food.jpg','Inventory change mock data','NOT000003'),
+	('84c56a7c-7753-4a44-9b95-ac7278c7b24f','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','0a5c236e-ff54-449e-834c-99c113b3b582','CHANGE','https://reinir.mooo.com/files/food.jpg','Inventory change mock data','NOTE000004');
+	
+/*
+INSERT INTO inventory_note_item
+	
+	(inventory_note_id,
+	product_in_store_id,
+	stock_change,
+	before_change)
+
+VALUES
+	
+	('69c89ae3-3d7f-44a1-bdcc-98df64f39486',
+	'572d8467-2e33-416c-baa6-9da8b25ceedd',
+	10,
+	20),
+	
+	('69c89ae3-3d7f-44a1-bdcc-98df64f39486',
+	'572d8467-2e33-416c-baa6-9da8b25ceedd',
+	10,
+	20),
+*/
+	
+	
+	
+	COMMIT;

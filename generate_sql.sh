@@ -27,6 +27,7 @@ cat Tables/vnp_transaction.sql >> $OUTPUT_FILE
 cat Tables/order_item.sql >> $OUTPUT_FILE
 cat Tables/promotion.sql >> $OUTPUT_FILE
 cat Tables/password_reset_attempt.sql >> $OUTPUT_FILE
+cat Tables/email_confirm_attempt.sql >> $OUTPUT_FILE
 # Function
 # cat Functions/generate_code.sql
 # mock data

@@ -4,7 +4,8 @@ CREATE TABLE customer (
     customer_phone VARCHAR(20),
     customer_email VARCHAR(255) UNIQUE NOT NULL,
     image_url VARCHAR(255),
-    password_hash VARCHAR(255) NOT NULL,    
+    password_hash VARCHAR(255) NOT NULL,
+	is_email_confirmed BOOL DEFAULT FALSE,
     -- Common for all table
 	code VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
