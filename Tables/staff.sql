@@ -7,7 +7,7 @@ CREATE TABLE staff (
     "role" varchar(50),
     store_id UUID,
     -- Common for all table
-	code VARCHAR(255),
+	code VARCHAR(255) UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -30,4 +30,10 @@ INSERT INTO staff (
     'admin',
     'AQAAAAIAAYagAAAAEM5qkMuCZU6mxSl3jhkZ8csttfpfjuTt8ehoAbSYVQNjRxhJwAATFQjkzeUPA/B7Wg==',
     'ADMIN',
-	'ADMIN');
+	'ADMIN'),
+	('6e9bac05-802d-46c3-9f58-5ce37cfc038e',
+	'system',
+    'system',
+    'AQAAAAIAAYagAAAAEM5qkMuCZU6mxSl3jhkZ8csttfpfjuTt8ehoAbSYVQNjRxhJwAATFQjkzeUPA/B7Wg==',
+    'SYSTEM',
+	'SYSTEM');

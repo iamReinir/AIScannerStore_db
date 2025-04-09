@@ -7,7 +7,7 @@ CREATE TABLE customer (
     password_hash VARCHAR(255) NOT NULL,
 	is_email_confirmed BOOL DEFAULT FALSE,
     -- Common for all table
-	code VARCHAR(255),
+	code VARCHAR(255) UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,

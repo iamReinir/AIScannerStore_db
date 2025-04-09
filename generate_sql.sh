@@ -29,7 +29,7 @@ cat Tables/promotion.sql >> $OUTPUT_FILE
 cat Tables/password_reset_attempt.sql >> $OUTPUT_FILE
 cat Tables/email_confirm_attempt.sql >> $OUTPUT_FILE
 # Function
-# cat Functions/generate_code.sql
+# cat Functions/generate_code.sql 
 # mock data
 cat MockData/product_mock.sql >> $OUTPUT_FILE
 cat MockData/store_mock.sql >> $OUTPUT_FILE
@@ -38,6 +38,7 @@ cat MockData/inventory_mock.sql >> $OUTPUT_FILE
 cat MockData/customer_mock.sql >> $OUTPUT_FILE
 cat MockData/card_mock.sql >> $OUTPUT_FILE
 cat MockData/order_mock.sql >> $OUTPUT_FILE
+cat MockData/good_order_mock.sql >> $OUTPUT_FILE
 cat MockData/deposit_mock.sql >> $OUTPUT_FILE
 cat MockData/wallet_mock.sql >> $OUTPUT_FILE
 cat MockData/promotion_mock.sql >> $OUTPUT_FILE

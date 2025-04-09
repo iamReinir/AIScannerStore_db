@@ -10,7 +10,7 @@ CREATE TABLE inventory_note (
 	CONSTRAINT fk_inv_log_of_staff FOREIGN KEY (staff_id) 
     REFERENCES staff(staff_id) ON DELETE SET NULL,
     -- Common for all table
-	code VARCHAR(255),
+	code VARCHAR(255) UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,

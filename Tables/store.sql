@@ -3,7 +3,7 @@ CREATE TABLE store (
     store_name VARCHAR(255) UNIQUE NOT NULL,
     store_location TEXT,
     -- Common for all table
-	code VARCHAR(255),
+	code VARCHAR(255) UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,
