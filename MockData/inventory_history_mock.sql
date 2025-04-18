@@ -6,27 +6,88 @@ VALUES
 	('cc407916-b4b7-434f-b671-7dd18d9c7bdf','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','0a5c236e-ff54-449e-834c-99c113b3b582','AUDIT','https://reinir.mooo.com/files/food.jpg','Inventory change mock data','NOT000003'),
 	('84c56a7c-7753-4a44-9b95-ac7278c7b24f','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','0a5c236e-ff54-449e-834c-99c113b3b582','CHANGE','https://reinir.mooo.com/files/food.jpg','Inventory change mock data','NOTE000004');
 	
-/*
-INSERT INTO inventory_note_item
 	
-	(inventory_note_id,
-	product_in_store_id,
-	stock_change,
-	before_change)
+INSERT INTO inventory_note (inventory_note_id,store_id,staff_id,"type",image_url,description,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'03485000-6353-4e33-b878-32328d89ba51'::uuid,'CHANGE','https://reinir.mooo.com/files/dde0b19f-d669-437a-90a9-e074d7fea78b.jpg','',NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false);
 
-VALUES
-	
-	('69c89ae3-3d7f-44a1-bdcc-98df64f39486',
-	'572d8467-2e33-416c-baa6-9da8b25ceedd',
-	10,
-	20),
-	
-	('69c89ae3-3d7f-44a1-bdcc-98df64f39486',
-	'572d8467-2e33-416c-baa6-9da8b25ceedd',
-	10,
-	20),
-*/
-	
-	
-	
-	
+INSERT INTO inventory_note_item (inventory_note_item_id,inventory_note_id,product_in_store_id,stock_change,before_change,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('08771eff-e5e2-4ef2-bc67-44c648deb714'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'6c2b5115-ae28-44de-8f05-e6f796947d09'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('1430b82f-7266-42db-a01a-8984fca423b1'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'cc544259-6cc3-48d0-ba1b-da22715c6f2b'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('225271cb-76c2-4739-9086-204977442056'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'963c6740-5e92-4b5c-9c9a-d8bed451e429'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('2a30db35-d6ea-44a2-9f3b-a6a214756ecf'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'d64fbd56-f9b3-4788-a6e9-f3e5a480e6f8'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('2f8a50d7-d6a2-4ebd-9640-715933ab53b6'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'cdc6f452-bb70-4c86-9e4f-7a49fc335f17'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('367a4754-6e29-4393-965f-a2cd27c5edfb'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'953c8077-a15e-431a-a238-64966ff0a414'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('58d6633b-5cda-4644-8de4-469535b76e2e'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'a8698aa1-b1ad-4d15-a23c-acd0300e9c00'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('616acc1e-1546-4206-8ad0-0a6e140ca66d'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'fffc5db9-dc6e-43e8-9b29-8b500791f35f'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('6e903c93-405f-4404-bb7b-ac122da5ee58'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'003e474d-e5e6-47fd-ab3d-95ac358560da'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('74741e7b-38a2-4d2f-bee0-85e62a791051'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'a6a3d453-de6d-4905-940d-f4d2ad2cd7f4'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false);
+INSERT INTO inventory_note_item (inventory_note_item_id,inventory_note_id,product_in_store_id,stock_change,before_change,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('854332e6-f304-4975-800b-3b156dedfbbb'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'572d8467-2e33-416c-baa6-9da8b25ceedd'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('91468c21-68ee-479f-8148-b2442c02ad64'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'01dfcc2c-c7c0-4a40-bab9-7e5d49be7ef9'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('99584ead-0c68-4aec-9105-829c8634aa3b'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'347f8b62-1bb0-495f-998d-0ffeee470d0a'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('9b261778-b62b-449a-84e8-bcb42359ab78'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'aa923b69-5fdb-40fe-ab56-decda440330f'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('a4692ef6-6007-4bcf-b61b-cffd72f24487'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'864e02dd-eb66-4af3-9873-e7606d9ccdde'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('a63a48c1-058c-437e-af84-5ed7adc55faa'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'81bb0fc4-039c-464d-a744-8f2267458e36'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('a6961ca6-4fad-4ce3-b486-479b347f773d'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'a9d09d7e-e7f9-440b-a7aa-fe023d8730fb'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('a8fc30b2-e3a5-47f2-b02d-6c224ec9bdcb'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'1566d6e1-0c10-4794-886b-f15cb1a7a74d'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('c005ba2c-0128-4ffc-a9ea-9d83c274479d'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'aab9c027-b1e2-490c-9d73-29f845d4671f'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('da6ff367-d612-4c08-8b1e-27eca40109d0'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'4d60e994-87cf-445f-9015-0951998157df'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false);
+INSERT INTO inventory_note_item (inventory_note_item_id,inventory_note_id,product_in_store_id,stock_change,before_change,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('ebec6fbc-60e1-4189-8e3e-44bb3b39ada6'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'c4612c3a-e977-4597-bf6d-9ca23a60fdd5'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('eef92adb-e466-4d08-8f30-4dab8d5fe7bb'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'c1acbd31-f1f9-4e71-bcd7-3984ff849738'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('f86c9309-6ec9-4917-9ff7-30abc8a1e631'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'ad9c2c20-8da2-47a0-831d-94a69cc424c2'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false),
+	 ('f9038e9d-a454-4d1c-80c9-dbf900dc3c30'::uuid,'8c4ea06a-8c72-4272-a836-7518dddc142a'::uuid,'bbb3df82-488a-41ea-8e76-ab69f3b1e75e'::uuid,30,0,NULL,'2025-04-08 00:00:00','2025-04-08 00:00:00',false,false);
+
+
+INSERT INTO inventory_note (inventory_note_id,store_id,staff_id,"type",image_url,description,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('4d3fe7b6-e35f-4d53-8cbd-be248ecf2a25'::uuid,'7c9e6679-7425-40de-944b-e07fc1f90ae7'::uuid,'03485000-6353-4e33-b878-32328d89ba51'::uuid,'CHANGE','https://reinir.mooo.com/files/61fd01e4-edce-4609-892f-3ec8e9253ecb.jpg','','INVE271970250411','2025-04-10 15:11:07.372162','2025-04-11 14:22:59.602531',false,false),
+	 ('4e633829-951f-431f-abd7-01fa0eb14abe'::uuid,'7c9e6679-7425-40de-944b-e07fc1f90ae7'::uuid,'03485000-6353-4e33-b878-32328d89ba51'::uuid,'CHANGE','https://reinir.mooo.com/files/d327f5bd-28f3-42d9-b7da-000469e27ab9.png','','INVE594867250411','2025-04-10 20:42:52.924355','2025-04-11 14:23:33.21435',false,false),
+	 ('22464b74-efe7-456a-9f0e-6167afcbd523'::uuid,'7c9e6679-7425-40de-944b-e07fc1f90ae7'::uuid,'03485000-6353-4e33-b878-32328d89ba51'::uuid,'CHANGE','https://reinir.mooo.com/files/0254b81e-d0c8-4224-9bce-dbb44c528bc9.png','','INVE790059250411','2025-04-08 01:30:55.058472','2025-04-11 14:26:00.456593',false,false),
+	 ('93e539b9-a487-4975-bac7-ec44f7e95a3c'::uuid,'7c9e6679-7425-40de-944b-e07fc1f90ae7'::uuid,'03485000-6353-4e33-b878-32328d89ba51'::uuid,'CHANGE','https://reinir.mooo.com/files/ebc56232-cc21-4733-9d81-4bef91824b75.png','','INVE293489250411','2025-04-07 22:19:37.065362','2025-04-11 14:27:02.95004',false,false),
+	 ('4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'7c9e6679-7425-40de-944b-e07fc1f90ae7'::uuid,'03485000-6353-4e33-b878-32328d89ba51'::uuid,'AUDIT','https://reinir.mooo.com/files/adbc4af4-cd7c-4919-9461-0069da815773.jpg','Audit from frontend','INVE041866250411','2025-04-11 14:34:41.355835','2025-04-11 14:34:41.355835',false,false);
+
+
+INSERT INTO inventory_note_item (inventory_note_item_id,inventory_note_id,product_in_store_id,stock_change,before_change,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('39cd2b1d-fbdc-4171-b2b4-8d7511ffbaf7'::uuid,'4d3fe7b6-e35f-4d53-8cbd-be248ecf2a25'::uuid,'d8f53197-ca00-44e8-a5ce-4402c1912c26'::uuid,20,0,'INVE760048250411','2025-04-11 14:22:59.605945','2025-04-11 14:22:59.605945',false,false),
+	 ('e5cf1889-091b-45cb-bb5d-e95f2029ff27'::uuid,'4d3fe7b6-e35f-4d53-8cbd-be248ecf2a25'::uuid,'d4081bd7-9657-49d5-8b6a-27bb04fc3b3c'::uuid,20,0,'INVE424810250411','2025-04-11 14:22:59.605942','2025-04-11 14:22:59.605942',false,false),
+	 ('e7f6902b-ea53-4bda-9371-112de65b1d49'::uuid,'4d3fe7b6-e35f-4d53-8cbd-be248ecf2a25'::uuid,'50205dbf-4ee3-47d3-a842-25f783edd435'::uuid,20,0,'INVE236137250411','2025-04-11 14:22:59.605933','2025-04-11 14:22:59.605933',false,false),
+	 ('faf5fe40-c9d8-434b-b9b6-db929b859a34'::uuid,'4d3fe7b6-e35f-4d53-8cbd-be248ecf2a25'::uuid,'fc9f5e81-248b-4305-93b4-44908e300175'::uuid,20,0,'INVE653488250411','2025-04-11 14:22:59.605496','2025-04-11 14:22:59.605496',false,false),
+	 ('b2f454f5-6a38-4b88-8276-8cc9225b4afe'::uuid,'4e633829-951f-431f-abd7-01fa0eb14abe'::uuid,'7a2379ca-4556-4646-9030-9ad551a6f82e'::uuid,40,0,'INVE280466250411','2025-04-11 14:23:33.214602','2025-04-11 14:23:33.214602',false,false),
+	 ('b3bee012-1467-46ed-ae58-f300bbfbf8c9'::uuid,'4e633829-951f-431f-abd7-01fa0eb14abe'::uuid,'4da7a14e-1f35-42b8-b570-82bd6ec4abf3'::uuid,40,0,'INVE601619250411','2025-04-11 14:23:33.214619','2025-04-11 14:23:33.214619',false,false),
+	 ('beaaf90d-5389-47d5-93ce-51c6399fa286'::uuid,'4e633829-951f-431f-abd7-01fa0eb14abe'::uuid,'abb20deb-e6cd-499c-a10a-a09c0933c5e5'::uuid,40,0,'INVE927188250411','2025-04-11 14:23:33.214629','2025-04-11 14:23:33.214629',false,false),
+	 ('f5a262f9-a69b-4d35-8a2f-55d5bf17a158'::uuid,'4e633829-951f-431f-abd7-01fa0eb14abe'::uuid,'e7908f0d-c961-44a4-9caa-7b2f46677226'::uuid,40,0,'INVE177499250411','2025-04-11 14:23:33.214633','2025-04-11 14:23:33.214634',false,false),
+	 ('429a036d-f431-40c4-846c-258f22abc1b6'::uuid,'22464b74-efe7-456a-9f0e-6167afcbd523'::uuid,'40cf7b34-71e9-4d46-af8c-bc1986f1449f'::uuid,20,0,'INVE635982250411','2025-04-11 14:26:00.456611','2025-04-11 14:26:00.456611',false,false),
+	 ('50f5d2fa-8d19-488c-9654-941713b7b13d'::uuid,'22464b74-efe7-456a-9f0e-6167afcbd523'::uuid,'be0405d7-a77e-40ab-a559-5e77ea929052'::uuid,20,0,'INVE874675250411','2025-04-11 14:26:00.456622','2025-04-11 14:26:00.456622',false,false);
+INSERT INTO inventory_note_item (inventory_note_item_id,inventory_note_id,product_in_store_id,stock_change,before_change,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('687f1188-28c9-4778-a72c-be742da4f5b4'::uuid,'22464b74-efe7-456a-9f0e-6167afcbd523'::uuid,'1067802d-ca9d-46c7-8301-0d1391fc4b5e'::uuid,20,0,'INVE056340250411','2025-04-11 14:26:00.456626','2025-04-11 14:26:00.456626',false,false),
+	 ('8db160b0-4066-4170-bec6-47d3387fc6b1'::uuid,'22464b74-efe7-456a-9f0e-6167afcbd523'::uuid,'abf8196e-6ee6-436a-8271-7d9448384f24'::uuid,50,0,'INVE097631250411','2025-04-11 14:26:00.456624','2025-04-11 14:26:00.456624',false,false),
+	 ('c3a61217-67ad-415b-aa9e-ad6c7aeec69f'::uuid,'22464b74-efe7-456a-9f0e-6167afcbd523'::uuid,'58fedb73-b9ac-41b1-a8f9-d30575a00356'::uuid,50,0,'INVE230643250411','2025-04-11 14:26:00.456618','2025-04-11 14:26:00.456618',false,false),
+	 ('eb90ef9c-8d5a-4917-9d1a-116224228a41'::uuid,'22464b74-efe7-456a-9f0e-6167afcbd523'::uuid,'821d7427-cc07-4d9b-9dde-dea596a1e54c'::uuid,20,0,'INVE344408250411','2025-04-11 14:26:00.456628','2025-04-11 14:26:00.456628',false,false),
+	 ('a1fc1198-5b2a-48b1-acb0-1c8781386c7a'::uuid,'93e539b9-a487-4975-bac7-ec44f7e95a3c'::uuid,'0c3b8981-1424-4541-9b19-a202b5db46d9'::uuid,30,0,'INVE240322250411','2025-04-11 14:27:02.950076','2025-04-11 14:27:02.950076',false,false),
+	 ('aea61b78-d767-4992-a5c2-9404f93f8689'::uuid,'93e539b9-a487-4975-bac7-ec44f7e95a3c'::uuid,'b2c0d70b-0add-4f87-baa1-a86798e3c2e3'::uuid,40,0,'INVE048896250411','2025-04-11 14:27:02.950064','2025-04-11 14:27:02.950064',false,false),
+	 ('b5077e29-9a4c-43bb-b999-fb8360a282c5'::uuid,'93e539b9-a487-4975-bac7-ec44f7e95a3c'::uuid,'fe0136c7-7f19-4889-b5e9-965dde2ea6d9'::uuid,20,0,'INVE290815250411','2025-04-11 14:27:02.950073','2025-04-11 14:27:02.950073',false,false),
+	 ('e8ad501e-c93b-4d02-85b2-df4cced89b75'::uuid,'93e539b9-a487-4975-bac7-ec44f7e95a3c'::uuid,'821d7427-cc07-4d9b-9dde-dea596a1e54c'::uuid,50,20,'INVE761043250411','2025-04-11 14:27:02.950079','2025-04-11 14:27:02.950079',false,false),
+	 ('17fbc052-efef-49cd-8bb7-96c380bfac01'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'fe0136c7-7f19-4889-b5e9-965dde2ea6d9'::uuid,10,20,'INVE673730250411','2025-04-11 14:34:41.356984','2025-04-11 14:34:41.356984',false,false),
+	 ('2c411af3-e0f5-4596-b83d-8b61acdde6e9'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'038dafc0-21ca-4860-b8a4-c2d7ea1d778e'::uuid,30,0,'INVE462782250411','2025-04-11 14:34:41.356943','2025-04-11 14:34:41.356944',false,false);
+INSERT INTO inventory_note_item (inventory_note_item_id,inventory_note_id,product_in_store_id,stock_change,before_change,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('38d19120-f996-49b3-add2-73a6366fe137'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'d4081bd7-9657-49d5-8b6a-27bb04fc3b3c'::uuid,10,20,'INVE023209250411','2025-04-11 14:34:41.356952','2025-04-11 14:34:41.356952',false,false),
+	 ('39901182-7d34-43e7-ba15-e0a3fcc24936'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'fc9f5e81-248b-4305-93b4-44908e300175'::uuid,10,20,'INVE978355250411','2025-04-11 14:34:41.356957','2025-04-11 14:34:41.356957',false,false),
+	 ('4679539f-0657-44d6-b6d7-058333ccc895'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'be0405d7-a77e-40ab-a559-5e77ea929052'::uuid,10,20,'INVE206007250411','2025-04-11 14:34:41.356978','2025-04-11 14:34:41.356978',false,false),
+	 ('59240048-6ced-41eb-9d52-fc2bf3fc03a3'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'50205dbf-4ee3-47d3-a842-25f783edd435'::uuid,10,20,'INVE441242250411','2025-04-11 14:34:41.35695','2025-04-11 14:34:41.35695',false,false),
+	 ('5b370a2b-1071-43ba-80e9-6df332898789'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'d8f53197-ca00-44e8-a5ce-4402c1912c26'::uuid,10,20,'INVE748567250411','2025-04-11 14:34:41.356954','2025-04-11 14:34:41.356954',false,false),
+	 ('66aa8465-8052-4114-8115-80b2d0a3d26f'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'4da7a14e-1f35-42b8-b570-82bd6ec4abf3'::uuid,-10,40,'INVE529890250411','2025-04-11 14:34:41.356959','2025-04-11 14:34:41.356959',false,false),
+	 ('70415ddb-b859-4d2e-a8b0-f841cca4e7cb'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'58fedb73-b9ac-41b1-a8f9-d30575a00356'::uuid,-20,50,'INVE845661250411','2025-04-11 14:34:41.356971','2025-04-11 14:34:41.356971',false,false),
+	 ('74a0e343-9dbc-41af-b3c9-c1237ba1b593'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'83da7102-bb37-42f3-b14a-784b3d820c47'::uuid,30,0,'INVE723004250411','2025-04-11 14:34:41.356937','2025-04-11 14:34:41.356937',false,false),
+	 ('79c0a221-0b80-4f32-be5a-c7d490b22037'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'e7908f0d-c961-44a4-9caa-7b2f46677226'::uuid,-10,40,'INVE600054250411','2025-04-11 14:34:41.356965','2025-04-11 14:34:41.356965',false,false),
+	 ('928cf89b-ba31-4f39-be87-48349d3fe51d'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'abf8196e-6ee6-436a-8271-7d9448384f24'::uuid,-20,50,'INVE784796250411','2025-04-11 14:34:41.356976','2025-04-11 14:34:41.356976',false,false);
+INSERT INTO inventory_note_item (inventory_note_item_id,inventory_note_id,product_in_store_id,stock_change,before_change,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('92a0e63c-9534-41ae-986c-9e37024fe5a9'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'4bf8b89c-fba4-4954-8ab9-cee059b97b1f'::uuid,30,0,'INVE864995250411','2025-04-11 14:34:41.356948','2025-04-11 14:34:41.356948',false,false),
+	 ('975a49fb-80c0-425d-b02f-787e25c4a301'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'fc8aec6a-39a7-4a27-8184-c49b6d833ac6'::uuid,30,0,'INVE864303250411','2025-04-11 14:34:41.356785','2025-04-11 14:34:41.356785',false,false),
+	 ('ab6dd684-0a18-4258-98c8-327336b8e02e'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'40cf7b34-71e9-4d46-af8c-bc1986f1449f'::uuid,10,20,'INVE693173250411','2025-04-11 14:34:41.356968','2025-04-11 14:34:41.356968',false,false),
+	 ('b0b188a7-60e9-4613-8c7b-8984709d0b2c'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'b2c0d70b-0add-4f87-baa1-a86798e3c2e3'::uuid,-10,40,'INVE637415250411','2025-04-11 14:34:41.356982','2025-04-11 14:34:41.356982',false,false),
+	 ('c98dd50d-2d0c-4b5c-9f64-e11e5249eadc'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'abb20deb-e6cd-499c-a10a-a09c0933c5e5'::uuid,-10,40,'INVE341753250411','2025-04-11 14:34:41.356963','2025-04-11 14:34:41.356963',false,false),
+	 ('d549e4af-9dfe-4d1d-bdcf-45285b245497'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'7a2379ca-4556-4646-9030-9ad551a6f82e'::uuid,-10,40,'INVE732069250411','2025-04-11 14:34:41.356961','2025-04-11 14:34:41.356961',false,false),
+	 ('d5a8539c-c07d-4e5a-99db-3168c3e94c1c'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'1067802d-ca9d-46c7-8301-0d1391fc4b5e'::uuid,10,20,'INVE257353250411','2025-04-11 14:34:41.356966','2025-04-11 14:34:41.356966',false,false),
+	 ('e4e5ab85-a0a3-4e93-bc81-2cb65bd96eb1'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'821d7427-cc07-4d9b-9dde-dea596a1e54c'::uuid,-40,70,'INVE031019250411','2025-04-11 14:34:41.35698','2025-04-11 14:34:41.35698',false,false),
+	 ('fa9f8870-494c-446a-810d-600d7bab1b6e'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'7080fe75-58f5-4e40-b5db-747f7ea5f0aa'::uuid,30,0,'INVE816131250411','2025-04-11 14:34:41.356946','2025-04-11 14:34:41.356946',false,false);
+
