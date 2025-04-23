@@ -395,18 +395,17 @@ INSERT INTO food_mapping (food_product_id, map_code) VALUES
 -- Drink Mappings
 INSERT INTO drink_mapping (drink_product_id, map_code) VALUES
 ('a1b2c3d4-5678-90ab-cdef-123456789012', '0'),
-('a1b2c3d4-5678-90ab-cdef-123456789013', '1'),
-('a1b2c3d4-5678-90ab-cdef-123456789014', '2'),
-('a1b2c3d4-5678-90ab-cdef-123456789015', '3'),
-('a1b2c3d4-5678-90ab-cdef-123456789016', '4'),
-('a1b2c3d4-5678-90ab-cdef-123456789017', '5'),
-('a1b2c3d4-5678-90ab-cdef-123456789018', '6'),
-('a1b2c3d4-5678-90ab-cdef-123456789019', '7'),
-('a1b2c3d4-5678-90ab-cdef-123456789020', '8'),
-('a1b2c3d4-5678-90ab-cdef-123456789021', '9'),
-('a1b2c3d4-5678-90ab-cdef-123456789022', '10'),
-('a1b2c3d4-5678-90ab-cdef-123456789023', '11'),
-('a1b2c3d4-5678-90ab-cdef-123456789024', '12');
+('a1b2c3d4-5678-90ab-cdef-123456789014', '1'),
+('a1b2c3d4-5678-90ab-cdef-123456789015', '2'),
+('a1b2c3d4-5678-90ab-cdef-123456789016', '3'),
+('a1b2c3d4-5678-90ab-cdef-123456789017', '4'),
+('a1b2c3d4-5678-90ab-cdef-123456789018', '5'),
+('a1b2c3d4-5678-90ab-cdef-123456789019', '6'),
+('a1b2c3d4-5678-90ab-cdef-123456789020', '7'),
+('a1b2c3d4-5678-90ab-cdef-123456789021', '8'),
+('a1b2c3d4-5678-90ab-cdef-123456789022', '9'),
+('a1b2c3d4-5678-90ab-cdef-123456789023', '10'),
+('a1b2c3d4-5678-90ab-cdef-123456789024', '11');
 
 INSERT INTO store (
     store_id,
@@ -452,6 +451,10 @@ INSERT INTO pos_device (device_id,store_id,hashed_token,expire_at,code,created_a
 	 ('31c91189-25ab-4a20-ac14-d3b2bce4f0ce'::uuid,'d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444'::uuid,'AQAAAAIAAYagAAAAEDxY9B98Cyswl3W5fxfDChqxJ2xRs9Rmwjn1/7zwqEs9p/I3Cmo7N8Oz8U3NdViE7A==','2025-05-08 10:32:12.649746','STORE4_DEV3','2025-04-08 10:32:12.493116','2025-04-08 10:32:12.649762',false,false),
 	 ('1366abf3-5a60-4c87-ab2e-2d16a6d60fc4'::uuid,'d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444'::uuid,'AQAAAAIAAYagAAAAEAy5cscliZkR5HRBPX/4Go/tUl10mjc+LvHJABHUPOeLlFul9gNO9tJrHIuClYP3Tw==','2025-05-08 10:32:15.849199','STORE4_DEV4','2025-04-08 10:32:15.690676','2025-04-08 10:32:15.849205',false,false),
 	 ('d1c81ca4-7b83-4bd3-998c-a6ce6f87f914'::uuid,'d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444'::uuid,'AQAAAAIAAYagAAAAECflozYIUqKKdzPD+MKZaLHWR4ew9TeVPNkSNjFnBongBH+4iJQ2nOMHNVY4FN+nMw==','2025-05-08 10:32:09.448916','STORE4_DEV2','2025-04-08 10:32:09.28926','2025-04-08 10:32:09.448922',false,false);
+	 
+INSERT INTO pos_device (device_id,store_id,hashed_token,expire_at,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('a33cfc20-a4b2-46b2-a00b-1e71b23b1d6a'::uuid,'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'AQAAAAIAAYagAAAAEGtDK2bVGIixDnaTXv/h1hNOP6oLwQXefytgBWnvAo4PEYCDru08mwpqt5DONsaWYw==','2025-05-22 00:02:47.464758','POS00000002','2025-04-22 00:02:47.321867','2025-04-22 00:02:47.464818',false,false);
+
 INSERT INTO staff (staff_id, staff_name, staff_phone, staff_email, "role", password_hash, store_id, code) 
     VALUES
     ('0a5c236e-ff54-449e-834c-99c113b3b582', 'Alice Johnson', '123-456-7890', 'alice.johnson@example.com', 'STORE_MANAGER','AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'STAF092193842'),
@@ -615,13 +618,13 @@ INSERT INTO card (card_id, customer_id, expiration_date, "type")
 VALUES 
     ('00020080-9900-401c-8990-000200809900', '7d793037-a124-486c-91f8-49a8b8b4f9da', '2026-01-01 00:00:00', 'PHYSICAL'),
 	('00020081-1400-4010-8411-000200811400', '65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', '2026-01-01 00:00:00', 'PHYSICAL'),
-	('00020082-3500-4014-8532-000200823500', 'f81a5888-7036-4327-892c-68e0f3d47053', '2026-01-01 00:00:00', 'PHYSICAL');INSERT INTO public."order" (order_id,card_id,device_id,staff_id,total,status) VALUES
-	 ('24962082-ea1a-4829-8a9d-bb35118649a1','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', NULL,1480100.00,'PAID'),
-	 ('ff718dc5-340c-4323-9b95-4391260b16d8','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', NULL,1391200.00,'FINISHED'),
-	 ('67c10684-7479-4e6b-bcb0-1c7ac52b7475','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', '0a5c236e-ff54-449e-834c-99c113b3b582',1215300.00,'EDITED'),
-	 ('307506a4-87a9-418d-97a6-43829f58f90a', NULL,'3fa85f64-5717-4562-b3fc-2c963f66a001', '0a5c236e-ff54-449e-834c-99c113b3b582', 1305300.00,'STAFF_CANCELLED'),
-	 ('3b7605ff-d7c0-4a04-bb2b-0117889f87c6','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', NULL,961800.00,'CANCELLED'),
-	 ('c49c3e2e-ceee-4732-9c5c-aea6fa7594b3', NULL,'3fa85f64-5717-4562-b3fc-2c963f66a001', NULL, 1145500.00,'CREATED');
+	('00020082-3500-4014-8532-000200823500', 'f81a5888-7036-4327-892c-68e0f3d47053', '2026-01-01 00:00:00', 'PHYSICAL');INSERT INTO public."order" (order_id,card_id,device_id,staff_id,total,status, code) VALUES
+	 ('24962082-ea1a-4829-8a9d-bb35118649a1','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', NULL,1480100.00,'PAID', 'ORDE908129837'),
+	 ('ff718dc5-340c-4323-9b95-4391260b16d8','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', NULL,1391200.00,'FINISHED', 'ORDE90811232'),
+	 ('67c10684-7479-4e6b-bcb0-1c7ac52b7475','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', '0a5c236e-ff54-449e-834c-99c113b3b582',1215300.00,'EDITED', 'ORDE908121232'),
+	 ('307506a4-87a9-418d-97a6-43829f58f90a', NULL,'3fa85f64-5717-4562-b3fc-2c963f66a001', '0a5c236e-ff54-449e-834c-99c113b3b582', 1305300.00,'STAFF_CANCELLED', 'ORDE91232878'),
+	 ('3b7605ff-d7c0-4a04-bb2b-0117889f87c6','f6a7b8c9-d0e1-4234-f012-6789012345f0','3fa85f64-5717-4562-b3fc-2c963f66a001', NULL,961800.00,'CANCELLED', 'ORDE901239869'),
+	 ('c49c3e2e-ceee-4732-9c5c-aea6fa7594b3', NULL,'3fa85f64-5717-4562-b3fc-2c963f66a001', NULL, 1145500.00,'CREATED', 'ORDE23212916');
 
 INSERT INTO public.order_item (order_item_id,order_id,product_id,count,unit_price,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('5d6d5229-df17-4a1e-ac45-489e788ddaf9','ff718dc5-340c-4323-9b95-4391260b16d8','a1b2c3d4-5678-90ab-cdef-123456789016',3,31900.00,'2025-03-10 18:44:08.073133','2025-03-10 18:44:08.073134',false,false),
