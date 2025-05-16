@@ -1,10 +1,10 @@
-	INSERT INTO wallet (customer_id, wallet_id, balance, priority, wallet_type) VALUES
-('550e8400-e29b-41d4-a716-446655440000', 'e2b7c3f9-5a44-4b1e-9b8d-7f3d2e1a6c75', 7500000.00, 0, 'MAIN'),
-('6f9619ff-8b86-d011-b42d-00c04fc964ff', 'a8c1f2d3-7e5b-42f6-9a9c-1d4e8b3f6c27', 250000.00, 0, 'MAIN'),
-('1b4e28ba-2fa1-11d2-883f-0016d3cca427', 'd4f8a2b9-3e7c-4a1d-8c5f-6b2e9f7a3c81', 100000.00, 0, 'MAIN'),
-('110ec58a-a0f2-4ac4-8393-c866d813b8d1', 'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a', 750000.00, 0, 'MAIN'),
-('f81a5888-7036-4327-892c-68e0f3d47053', '571f7c5b-81e0-40ba-aed3-73d8b49f88ae', 500000.00, 0,  'MAIN'),
-('f81a5888-7036-4327-892c-68e0f3d47053', '6cbbb1f0-ea3d-4d3c-8edf-2b8a4595fa77', 0.00, 1,  'BONUS')
+	INSERT INTO wallet (customer_id, wallet_id, balance, priority, wallet_type, expire_at) VALUES
+('550e8400-e29b-41d4-a716-446655440000', 'e2b7c3f9-5a44-4b1e-9b8d-7f3d2e1a6c75', 7500000.00, 0, 'MAIN', null),
+('6f9619ff-8b86-d011-b42d-00c04fc964ff', 'a8c1f2d3-7e5b-42f6-9a9c-1d4e8b3f6c27', 250000.00, 0, 'MAIN', null),
+('1b4e28ba-2fa1-11d2-883f-0016d3cca427', 'd4f8a2b9-3e7c-4a1d-8c5f-6b2e9f7a3c81', 100000.00, 0, 'MAIN', null),
+('110ec58a-a0f2-4ac4-8393-c866d813b8d1', 'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a', 750000.00, 0, 'MAIN', null),
+('f81a5888-7036-4327-892c-68e0f3d47053', '571f7c5b-81e0-40ba-aed3-73d8b49f88ae', 5000.00, 0,  'MAIN', null),
+('f81a5888-7036-4327-892c-68e0f3d47053', '6cbbb1f0-ea3d-4d3c-8edf-2b8a4595fa77', 0.00, 1,  'BONUS', NOW() + INTERVAL '6 hours')
 ;
 
 
@@ -54,9 +54,9 @@ INSERT INTO wallet (wallet_id,customer_id,balance,priority,wallet_type,expire_at
 
 
 
-INSERT INTO wallet (wallet_id, customer_id, balance, priority, wallet_type) VALUES
-	('0195836d-7063-7e95-99bc-e59da39bb55e','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 3800000.00, 0, 'MAIN'),
-	('0195836d-7063-7e95-99bc-e59da39bb55f','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 60000.00, 1, 'BONUS');
+INSERT INTO wallet (wallet_id, customer_id, balance, priority, wallet_type, expire_at) VALUES
+	('0195836d-7063-7e95-99bc-e59da39bb55e','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 3800000.00, 0, 'MAIN', null),
+	('0195836d-7063-7e95-99bc-e59da39bb55f','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 60000.00, 1, 'BONUS', NOW() + INTERVAL '6 hours');
 
 INSERT INTO wallet_transaction (wallet_id, amount, type, order_id, deposit_id, description, created_at, updated_at) VALUES
 ('0195836d-7063-7e95-99bc-e59da39bb55e', 3000000.00, 'DEPOSIT', NULL,'2e4b28ba-3fa2-22d2-884f-0016d3cca431','Deposit','2025-03-11 19:00:00', '2025-03-11 19:00:00'),

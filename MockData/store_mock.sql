@@ -3,24 +3,25 @@ INSERT INTO store (
     store_id,
     store_name,
     store_location,
-	code
+	code,
+	image_url
 ) 
 VALUES
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'SuperMart Downtown', '123 Main Street, Downtown', 'STOR000001'),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'QuickShop Central', '456 Center Avenue, Central', 'STOR000002'),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'MegaStore North', '789 North Road, Uptown', 'STOR000003'),
-    ('d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444', 'BudgetMart East', '321 East Lane, Eastside', 'STOR000004'),
-    ('e5b3c2f1-2d75-4f3a-9a21-3b4a1c8f5555', 'ValueShop West', '654 West Street, Westend', 'STOR000005'),
-    ('f6c4e1a7-1b63-41c2-bf82-2f1c7a5b6666', 'Neighborhood Market', '987 South Avenue, Southside', 'STOR000006'),
-    ('a7d2b5c3-6f14-49c2-9f31-7a1c4b2f7777', 'FreshMart Hills', '159 Hills Road, Hilltop', 'STOR000007'),
-    ('b8e1c3f7-4a62-48d2-bf41-1c7a2b8f8888', 'GreenLeaf Organic', '753 Garden Street, Greenfield', 'STOR000008'),
-    ('c9f7a2d1-3b81-4e2a-bf24-4a1c5b7f9999', 'Urban Market', '246 City Center Blvd, Midtown', 'STOR000009'),
-    ('d0a5e4c8-2b17-4f3a-bc52-3f1a7c2f0000', 'Family Grocery', '369 Maple Avenue, Riverside', 'STOR000010'),
-    ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Downtown Market', '123 Main Street, Downtown', 'STOR000011'),
-    ('9c858901-8a57-4791-81fe-4c455b099bc9', 'Uptown Grocery', '456 Elm Street, Uptown', 'STOR000012'),
-    ('3fa85f64-5717-4562-b3fc-2c963f66afa6', 'Central Plaza Store', '789 Oak Avenue, Central Plaza', 'STOR000013'),
-    ('16fd2706-8baf-433b-82eb-8c7fada847da', 'Riverside Mart', '321 River Road, Riverside', 'STOR000014'),
-    ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 'Hilltop Supplies', '654 Pine Street, Hilltop', 'STOR000015');
+    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'SuperMart Downtown', '123 Main Street, Downtown', 'STOR000001', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'QuickShop Central', '456 Center Avenue, Central', 'STOR000002', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'MegaStore North', '789 North Road, Uptown', 'STOR000003', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444', 'BudgetMart East', '321 East Lane, Eastside', 'STOR000004', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('e5b3c2f1-2d75-4f3a-9a21-3b4a1c8f5555', 'ValueShop West', '654 West Street, Westend', 'STOR000005', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('f6c4e1a7-1b63-41c2-bf82-2f1c7a5b6666', 'Neighborhood Market', '987 South Avenue, Southside', 'STOR000006', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('a7d2b5c3-6f14-49c2-9f31-7a1c4b2f7777', 'FreshMart Hills', '159 Hills Road, Hilltop', 'STOR000007', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('b8e1c3f7-4a62-48d2-bf41-1c7a2b8f8888', 'GreenLeaf Organic', '753 Garden Street, Greenfield', 'STOR000008', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('c9f7a2d1-3b81-4e2a-bf24-4a1c5b7f9999', 'Urban Market', '246 City Center Blvd, Midtown', 'STOR000009', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('d0a5e4c8-2b17-4f3a-bc52-3f1a7c2f0000', 'Family Grocery', '369 Maple Avenue, Riverside', 'STOR000010', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Downtown Market', '123 Main Street, Downtown', 'STOR000011', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('9c858901-8a57-4791-81fe-4c455b099bc9', 'Uptown Grocery', '456 Elm Street, Uptown', 'STOR000012', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('3fa85f64-5717-4562-b3fc-2c963f66afa6', 'Central Plaza Store', '789 Oak Avenue, Central Plaza', 'STOR000013', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('16fd2706-8baf-433b-82eb-8c7fada847da', 'Riverside Mart', '321 River Road, Riverside', 'STOR000014', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 'Hilltop Supplies', '654 Pine Street, Hilltop', 'STOR000015', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png');
 
 INSERT INTO pos_device (device_id,store_id,hashed_token,expire_at,code,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('0b75b5e2-444f-4b0d-8742-ccdb20ae2e0e'::uuid,'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'AQAAAAIAAYagAAAAEIVwvAMb4g3A11p5V5UYWqlsZh53mCqqUvx3Bg/zVrkQjaJnCTYVZplZ/7t46DgOMQ==','2025-05-08 10:12:24.948182','STORE1_DEV4','2025-04-08 10:09:51.619462','2025-04-08 10:12:05.611998',false,false),

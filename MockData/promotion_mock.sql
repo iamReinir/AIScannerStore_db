@@ -8,5 +8,7 @@ INSERT INTO promotion (promotion_id, detail, "type", code, is_suspended) VALUES
 	'{"Percentage":16.5,"BonusWalletLifeTimeInHours":7,"AppliedDayOfWeek":"THU"}', 'DEPOSIT_PROMO_V1', 'THU_SPR2025', false),
 	('a301edce-9a41-4c93-a109-1572b46df4a3',
 	'{"Percentage":17.5,"BonusWalletLifeTimeInHours":6,"AppliedDayOfWeek":"FRI"}', 'DEPOSIT_PROMO_V1', 'FRI_SPR2025', false),
+	('4c5606c9-35e2-4427-a528-e16fa801027b','{"Percentage":15,"BonusWalletLifeTimeInHours":6,"AppliedDayOfWeek":"SAT"}', 'DEPOSIT_PROMO_V1', 'SAT_SPR2025', false),
+	('2b62f99c-118d-4c84-80dc-4cfa64a9f5da','{"Percentage":15,"BonusWalletLifeTimeInHours":6,"AppliedDayOfWeek":"SUN"}', 'DEPOSIT_PROMO_V1', 'SUN_SPR2025', false),
 	('550e8400-e29b-41d4-a716-446655440001', '{}', 'DEPOSIT_PROMO_V1', 'TEST_PROMOTION', true),
 	('550e8400-e29b-41d4-a716-446655440002', '{}', 'DEPOSIT_PROMO_V1', 'PROMO789', true);

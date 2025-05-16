@@ -343,6 +343,27 @@ CREATE TABLE inventory_note_item (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,
     is_suspended BOOLEAN DEFAULT FALSE
+);CREATE TABLE order_edit_request (
+    request_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    customer_id UUID NOT NULL,
+	order_id UUID NOT NULL,
+	replier_id UUID,
+	request_content TEXT,
+	reply_content TEXT,
+	reply_date TIMESTAMP,
+	STATUS VARCHAR(50) NOT NULL,
+	CONSTRAINT fk_edit_request_of_customer FOREIGN KEY (customer_id)
+        REFERENCES customer(customer_id) ON DELETE CASCADE,
+		CONSTRAINT fk_edit_request_for_order FOREIGN KEY (order_id)
+        REFERENCES "order"(order_id) ON DELETE CASCADE,
+	CONSTRAINT fk_staff_answer_edit_request FOREIGN KEY (replier_id)
+        REFERENCES staff(staff_id) ON DELETE SET NULL,
+    -- Common for all table
+	code VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    is_suspended BOOLEAN DEFAULT FALSE
 );INSERT INTO category (category_id, category_name, category_description, code) VALUES
 ('f1a2b3c4-5678-90ab-cdef-123456789001', 'Bread & Pastries', 'A selection of freshly baked bread, croissants, and sandwiches.', 'CATE09877665523'),
 ('f1a2b3c4-5678-90ab-cdef-123456789002', 'Cakes & Desserts', 'Delicious cakes, muffins, and pastries for any occasion.', 'CATE012125125'),
@@ -411,24 +432,25 @@ INSERT INTO store (
     store_id,
     store_name,
     store_location,
-	code
+	code,
+	image_url
 ) 
 VALUES
-    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'SuperMart Downtown', '123 Main Street, Downtown', 'STOR000001'),
-    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'QuickShop Central', '456 Center Avenue, Central', 'STOR000002'),
-    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'MegaStore North', '789 North Road, Uptown', 'STOR000003'),
-    ('d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444', 'BudgetMart East', '321 East Lane, Eastside', 'STOR000004'),
-    ('e5b3c2f1-2d75-4f3a-9a21-3b4a1c8f5555', 'ValueShop West', '654 West Street, Westend', 'STOR000005'),
-    ('f6c4e1a7-1b63-41c2-bf82-2f1c7a5b6666', 'Neighborhood Market', '987 South Avenue, Southside', 'STOR000006'),
-    ('a7d2b5c3-6f14-49c2-9f31-7a1c4b2f7777', 'FreshMart Hills', '159 Hills Road, Hilltop', 'STOR000007'),
-    ('b8e1c3f7-4a62-48d2-bf41-1c7a2b8f8888', 'GreenLeaf Organic', '753 Garden Street, Greenfield', 'STOR000008'),
-    ('c9f7a2d1-3b81-4e2a-bf24-4a1c5b7f9999', 'Urban Market', '246 City Center Blvd, Midtown', 'STOR000009'),
-    ('d0a5e4c8-2b17-4f3a-bc52-3f1a7c2f0000', 'Family Grocery', '369 Maple Avenue, Riverside', 'STOR000010'),
-    ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Downtown Market', '123 Main Street, Downtown', 'STOR000011'),
-    ('9c858901-8a57-4791-81fe-4c455b099bc9', 'Uptown Grocery', '456 Elm Street, Uptown', 'STOR000012'),
-    ('3fa85f64-5717-4562-b3fc-2c963f66afa6', 'Central Plaza Store', '789 Oak Avenue, Central Plaza', 'STOR000013'),
-    ('16fd2706-8baf-433b-82eb-8c7fada847da', 'Riverside Mart', '321 River Road, Riverside', 'STOR000014'),
-    ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 'Hilltop Supplies', '654 Pine Street, Hilltop', 'STOR000015');
+    ('a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'SuperMart Downtown', '123 Main Street, Downtown', 'STOR000001', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('b2c7e1d3-8a2c-46c3-9f21-4c2a7b1b2222', 'QuickShop Central', '456 Center Avenue, Central', 'STOR000002', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('c3f1a8b7-9d41-4e2a-bf13-2a1c4b7b3333', 'MegaStore North', '789 North Road, Uptown', 'STOR000003', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444', 'BudgetMart East', '321 East Lane, Eastside', 'STOR000004', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('e5b3c2f1-2d75-4f3a-9a21-3b4a1c8f5555', 'ValueShop West', '654 West Street, Westend', 'STOR000005', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('f6c4e1a7-1b63-41c2-bf82-2f1c7a5b6666', 'Neighborhood Market', '987 South Avenue, Southside', 'STOR000006', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('a7d2b5c3-6f14-49c2-9f31-7a1c4b2f7777', 'FreshMart Hills', '159 Hills Road, Hilltop', 'STOR000007', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('b8e1c3f7-4a62-48d2-bf41-1c7a2b8f8888', 'GreenLeaf Organic', '753 Garden Street, Greenfield', 'STOR000008', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('c9f7a2d1-3b81-4e2a-bf24-4a1c5b7f9999', 'Urban Market', '246 City Center Blvd, Midtown', 'STOR000009', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('d0a5e4c8-2b17-4f3a-bc52-3f1a7c2f0000', 'Family Grocery', '369 Maple Avenue, Riverside', 'STOR000010', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Downtown Market', '123 Main Street, Downtown', 'STOR000011', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('9c858901-8a57-4791-81fe-4c455b099bc9', 'Uptown Grocery', '456 Elm Street, Uptown', 'STOR000012', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('3fa85f64-5717-4562-b3fc-2c963f66afa6', 'Central Plaza Store', '789 Oak Avenue, Central Plaza', 'STOR000013', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('16fd2706-8baf-433b-82eb-8c7fada847da', 'Riverside Mart', '321 River Road, Riverside', 'STOR000014', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png'),
+    ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 'Hilltop Supplies', '654 Pine Street, Hilltop', 'STOR000015', 'https://images2.thanhnien.vn/Uploaded/nthanhluan/2023_01_14/picture1-9615.png');
 
 INSERT INTO pos_device (device_id,store_id,hashed_token,expire_at,code,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('0b75b5e2-444f-4b0d-8742-ccdb20ae2e0e'::uuid,'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'AQAAAAIAAYagAAAAEIVwvAMb4g3A11p5V5UYWqlsZh53mCqqUvx3Bg/zVrkQjaJnCTYVZplZ/7t46DgOMQ==','2025-05-08 10:12:24.948182','STORE1_DEV4','2025-04-08 10:09:51.619462','2025-04-08 10:12:05.611998',false,false),
@@ -462,7 +484,7 @@ INSERT INTO staff (staff_id, staff_name, staff_phone, staff_email, "role", passw
     ('86e3635b-f1d4-4e98-b30b-095c7d32b42b', 'Clara Lee', NULL, 'clara.lee@example.com', 'STAFF','AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', '3fa85f64-5717-4562-b3fc-2c963f66afa6', 'STAF293829510'),
     ('4ce18af5-130c-44ed-ba84-38a4411fdf95', 'NghiaNT', NULL, 'nghiant@aistore.com', 'IT_HD', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'STAF293848292'),
     ('d8d0e33a-a490-4fce-beee-fcad5eaef9a3', 'TrungNX', NULL, 'trungnx@aistore.com', 'IT_HD', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'STAF222394028'),
-	('d8d0e33a-a490-4fce-beee-fcad5eaef9a4', 'TrungNX', NULL, 'trung@mail.com', 'STORE_MANAGER', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'STAF29382910')
+	('d8d0e33a-a490-4fce-beee-fcad5eaef9a4', 'TrungNX', NULL, 'blackwhitenxt@gmail.com', 'STORE_MANAGER', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'STAF29382910')
     ;
 
 INSERT INTO product_in_store (product_in_store_id,store_id,product_id,price,stock,code,created_at,updated_at,is_deleted,is_suspended) VALUES
@@ -925,13 +947,13 @@ INSERT INTO deposit (deposit_id,customer_id,amount,status,code,created_at,update
 	 ('019614ab-2a34-7716-8bae-f9de39546c12'::uuid,'7d793037-a124-486c-91f8-49a8b8b4f9da'::uuid,500000.00,'FAILED','DEPO84728077250409','2025-04-08 16:11:23.956724','2025-04-09 08:12:12.564623',false,false),
 	 ('01961816-c62c-7d8f-b5ba-dd091a29e0b5'::uuid,'7d793037-a124-486c-91f8-49a8b8b4f9da'::uuid,500000.00,'SUCCEED','DEPO029438250904','2025-04-09 08:07:47.884342','2025-04-09 08:08:38.960886',false,false),
 	 ('0196181b-b80d-722e-ba49-61c408ed7dc7'::uuid,'7d793037-a124-486c-91f8-49a8b8b4f9da'::uuid,500000.00,'SUCCEED','DEPO365933250904','2025-04-09 08:13:11.949343','2025-04-09 08:13:52.514428',false,false);
-	INSERT INTO wallet (customer_id, wallet_id, balance, priority, wallet_type) VALUES
-('550e8400-e29b-41d4-a716-446655440000', 'e2b7c3f9-5a44-4b1e-9b8d-7f3d2e1a6c75', 7500000.00, 0, 'MAIN'),
-('6f9619ff-8b86-d011-b42d-00c04fc964ff', 'a8c1f2d3-7e5b-42f6-9a9c-1d4e8b3f6c27', 250000.00, 0, 'MAIN'),
-('1b4e28ba-2fa1-11d2-883f-0016d3cca427', 'd4f8a2b9-3e7c-4a1d-8c5f-6b2e9f7a3c81', 100000.00, 0, 'MAIN'),
-('110ec58a-a0f2-4ac4-8393-c866d813b8d1', 'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a', 750000.00, 0, 'MAIN'),
-('f81a5888-7036-4327-892c-68e0f3d47053', '571f7c5b-81e0-40ba-aed3-73d8b49f88ae', 500000.00, 0,  'MAIN'),
-('f81a5888-7036-4327-892c-68e0f3d47053', '6cbbb1f0-ea3d-4d3c-8edf-2b8a4595fa77', 0.00, 1,  'BONUS')
+	INSERT INTO wallet (customer_id, wallet_id, balance, priority, wallet_type, expire_at) VALUES
+('550e8400-e29b-41d4-a716-446655440000', 'e2b7c3f9-5a44-4b1e-9b8d-7f3d2e1a6c75', 7500000.00, 0, 'MAIN', null),
+('6f9619ff-8b86-d011-b42d-00c04fc964ff', 'a8c1f2d3-7e5b-42f6-9a9c-1d4e8b3f6c27', 250000.00, 0, 'MAIN', null),
+('1b4e28ba-2fa1-11d2-883f-0016d3cca427', 'd4f8a2b9-3e7c-4a1d-8c5f-6b2e9f7a3c81', 100000.00, 0, 'MAIN', null),
+('110ec58a-a0f2-4ac4-8393-c866d813b8d1', 'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a', 750000.00, 0, 'MAIN', null),
+('f81a5888-7036-4327-892c-68e0f3d47053', '571f7c5b-81e0-40ba-aed3-73d8b49f88ae', 5000.00, 0,  'MAIN', null),
+('f81a5888-7036-4327-892c-68e0f3d47053', '6cbbb1f0-ea3d-4d3c-8edf-2b8a4595fa77', 0.00, 1,  'BONUS', NOW() + INTERVAL '6 hours')
 ;
 
 
@@ -981,9 +1003,9 @@ INSERT INTO wallet (wallet_id,customer_id,balance,priority,wallet_type,expire_at
 
 
 
-INSERT INTO wallet (wallet_id, customer_id, balance, priority, wallet_type) VALUES
-	('0195836d-7063-7e95-99bc-e59da39bb55e','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 3800000.00, 0, 'MAIN'),
-	('0195836d-7063-7e95-99bc-e59da39bb55f','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 60000.00, 1, 'BONUS');
+INSERT INTO wallet (wallet_id, customer_id, balance, priority, wallet_type, expire_at) VALUES
+	('0195836d-7063-7e95-99bc-e59da39bb55e','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 3800000.00, 0, 'MAIN', null),
+	('0195836d-7063-7e95-99bc-e59da39bb55f','65e7ae60-1e61-4ef9-88c2-e6f3b3bc2f21', 60000.00, 1, 'BONUS', NOW() + INTERVAL '6 hours');
 
 INSERT INTO wallet_transaction (wallet_id, amount, type, order_id, deposit_id, description, created_at, updated_at) VALUES
 ('0195836d-7063-7e95-99bc-e59da39bb55e', 3000000.00, 'DEPOSIT', NULL,'2e4b28ba-3fa2-22d2-884f-0016d3cca431','Deposit','2025-03-11 19:00:00', '2025-03-11 19:00:00'),
@@ -1185,6 +1207,8 @@ INSERT INTO wallet_transaction (wallet_transaction_id,wallet_id,amount,"type",de
 	'{"Percentage":16.5,"BonusWalletLifeTimeInHours":7,"AppliedDayOfWeek":"THU"}', 'DEPOSIT_PROMO_V1', 'THU_SPR2025', false),
 	('a301edce-9a41-4c93-a109-1572b46df4a3',
 	'{"Percentage":17.5,"BonusWalletLifeTimeInHours":6,"AppliedDayOfWeek":"FRI"}', 'DEPOSIT_PROMO_V1', 'FRI_SPR2025', false),
+	('4c5606c9-35e2-4427-a528-e16fa801027b','{"Percentage":15,"BonusWalletLifeTimeInHours":6,"AppliedDayOfWeek":"SAT"}', 'DEPOSIT_PROMO_V1', 'SAT_SPR2025', false),
+	('2b62f99c-118d-4c84-80dc-4cfa64a9f5da','{"Percentage":15,"BonusWalletLifeTimeInHours":6,"AppliedDayOfWeek":"SUN"}', 'DEPOSIT_PROMO_V1', 'SUN_SPR2025', false),
 	('550e8400-e29b-41d4-a716-446655440001', '{}', 'DEPOSIT_PROMO_V1', 'TEST_PROMOTION', true),
 	('550e8400-e29b-41d4-a716-446655440002', '{}', 'DEPOSIT_PROMO_V1', 'PROMO789', true);INSERT INTO inventory_note (inventory_note_id,store_id,staff_id,"type",image_url,"description",code)
 VALUES
