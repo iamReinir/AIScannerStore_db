@@ -3,10 +3,14 @@ cd ~/AIScannerStore_db
 OUTPUT_FILE="init_db.sql"
 echo "Generate database script"
 
-# Table structure
 # Create new file
+# Start transaction
 echo "BEGIN;" > $OUTPUT_FILE
+
+# Clear all tables (only table, not functions or triggers or SP)
 cat drop_table.sql >> $OUTPUT_FILE
+
+## Table structure
 cat Tables/store.sql >> $OUTPUT_FILE
 cat Tables/pos_device.sql >> $OUTPUT_FILE
 cat Tables/staff.sql >> $OUTPUT_FILE
@@ -25,10 +29,12 @@ cat Tables/wallet.sql >> $OUTPUT_FILE
 cat Tables/wallet_transaction.sql >> $OUTPUT_FILE
 cat Tables/vnp_transaction.sql >> $OUTPUT_FILE
 cat Tables/order_item.sql >> $OUTPUT_FILE
+cat Tables/promotion_mock.sql >> $OUTPUT_FILE
 cat Tables/promotion.sql >> $OUTPUT_FILE
 cat Tables/password_reset_attempt.sql >> $OUTPUT_FILE
 cat Tables/email_confirm_attempt.sql >> $OUTPUT_FILE
 cat Tables/order_edit_request.sql >> $OUTPUT_FILE
+cat Tables/promotion_log.sql >> $OUTPUT_FILE
 # Function
 # cat Functions/generate_code.sql 
 # mock data
@@ -44,5 +50,10 @@ cat MockData/deposit_mock.sql >> $OUTPUT_FILE
 cat MockData/wallet_mock.sql >> $OUTPUT_FILE
 cat MockData/promotion_mock.sql >> $OUTPUT_FILE
 cat MockData/inventory_history_mock.sql >> $OUTPUT_FILE
+
+# Large volume orders mock
+cat MockData/auto_generate_order.sql >> $OUTPUT_FILE
+
+# Commit
 echo "COMMIT;" >> $OUTPUT_FILE
 

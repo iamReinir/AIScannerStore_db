@@ -4,6 +4,7 @@ CREATE TABLE order_item (
     product_id UUID,
     "count" INTEGER NOT NULL,
     unit_price DECIMAL(20,2) NOT NULL,
+	discount DECIMAL(20,2) NOT NULL DEFAULT 0,
     CONSTRAINT fk_item_of_order FOREIGN KEY (order_id) REFERENCES "order"(order_id) ON DELETE CASCADE,
     CONSTRAINT fk_product_of_order_item FOREIGN KEY (product_id) REFERENCES product(product_id) ON DELETE SET NULL,
     -- Common for all table

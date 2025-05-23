@@ -13,9 +13,10 @@ DECLARE
 	prod_count INTEGER;
 	item_count INTEGER;
 	new_order_id UUID;
+	rand_code VARCHAR(50);
 	
 BEGIN
-    WHILE i <= 1000 LOOP
+    WHILE i <= 18000 LOOP
 		-- Randomize day.
 		j := 1;
 		WHILE j <= 10 LOOP
@@ -24,6 +25,15 @@ BEGIN
             -- 0 = Sunday, 6 = Saturday; keep only 1–5 (Mon–Fri)
 			j := j + 1;
         END LOOP;
+		
+		-- Too many order and some will have duplicated code
+		LOOP
+            rand_code := generate_code('ORDE');
+            EXIT WHEN NOT EXISTS (
+				SELECT 1 FROM "order" WHERE code = rand_code
+			);
+        END LOOP;
+		
 		-- Get random card
 		SELECT card_id into rand_card
 		FROM card c 
@@ -43,7 +53,8 @@ BEGIN
 			image1,
 			image2,
 			image3,
-			created_at) 
+			created_at,
+			code)
 		VALUES (
 			rand_card,
 			rand_device,
@@ -52,7 +63,8 @@ BEGIN
 			img,
 			img,
 			img,
-			rand_date)
+			rand_date,
+			rand_code)
 		RETURNING order_id 
 		INTO new_order_id;
 		
@@ -94,7 +106,7 @@ BEGIN
 					RANDOM() LIMIT 1;
 			END IF;
 			
-			item_count := FLOOR(RANDOM() * 3 + 1)::int;
+			item_count := FLOOR(RANDOM() * 2 + 1)::int;
 			totl := totl + item_count * prod_price;
 			
 			-- Add order item

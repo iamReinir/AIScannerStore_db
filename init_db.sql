@@ -140,6 +140,7 @@ CREATE TABLE customer (
     customer_id UUID NOT NULL,
     amount NUMERIC(20,2),
 	status VARCHAR(50),
+	applied_promotion UUID,
     CONSTRAINT fk_deposit_of_customer FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,
     -- Common for all table
 	code VARCHAR(255) UNIQUE,
@@ -169,13 +170,15 @@ CREATE TABLE card (
     device_id UUID,
     staff_id UUID,
     old_order_id UUID,
+	order_discount NUMERIC(20,2) NOT NULL DEFAULT 0,
+	total_item_discount NUMERIC(20,2) NOT NULL DEFAULT 0,
     total NUMERIC(20,2) NOT NULL,
     status varchar(50),
     image1 varchar(255),
     image2 varchar(255),
     image3 varchar(255),
-	is_flagged BOOL DEFAULT FALSE,
 	is_correction BOOL DEFAULT FALSE,
+	is_flagged BOOL DEFAULT FALSE,
     CONSTRAINT fk_manual_order FOREIGN KEY (staff_id) REFERENCES staff(staff_id) ON DELETE SET NULL,
     CONSTRAINT fk_order_of_card FOREIGN KEY (card_id) REFERENCES card(card_id) ON DELETE SET NULL,
     CONSTRAINT fk_order_from_device FOREIGN KEY (device_id) REFERENCES pos_device(device_id) ON DELETE SET NULL,
@@ -296,6 +299,7 @@ CREATE TABLE inventory_note_item (
     product_id UUID,
     "count" INTEGER NOT NULL,
     unit_price DECIMAL(20,2) NOT NULL,
+	discount DECIMAL(20,2) NOT NULL DEFAULT 0,
     CONSTRAINT fk_item_of_order FOREIGN KEY (order_id) REFERENCES "order"(order_id) ON DELETE CASCADE,
     CONSTRAINT fk_product_of_order_item FOREIGN KEY (product_id) REFERENCES product(product_id) ON DELETE SET NULL,
     -- Common for all table
@@ -304,10 +308,27 @@ CREATE TABLE inventory_note_item (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted BOOLEAN DEFAULT FALSE,
     is_suspended BOOLEAN DEFAULT FALSE    
+);CREATE TABLE promotion_mock (
+    promotion_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+	detail JSONB,
+	"type" varchar(50) DEFAULT 'UNKNOWN',
+    -- Common for all table    
+	code VARCHAR(255) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    is_suspended BOOLEAN DEFAULT FALSE
 );CREATE TABLE promotion (
     promotion_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 	detail JSONB,
 	"type" varchar(50) DEFAULT 'UNKNOWN',
+	start_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	end_at TIMESTAMP DEFAULT NULL,
+	applied_customer_id UUID DEFAULT NULL,
+	priority INTEGER NOT NULL DEFAULT 0,
+	description TEXT,
+	CONSTRAINT fk_promo_of_customer FOREIGN KEY (applied_customer_id)
+        REFERENCES customer(customer_id) ON DELETE SET NULL,
     -- Common for all table    
 	code VARCHAR(255) UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -359,6 +380,19 @@ CREATE TABLE inventory_note_item (
 	CONSTRAINT fk_staff_answer_edit_request FOREIGN KEY (replier_id)
         REFERENCES staff(staff_id) ON DELETE SET NULL,
     -- Common for all table
+	code VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    is_suspended BOOLEAN DEFAULT FALSE
+);CREATE TABLE promotion_log (
+    promotion_log_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+	promotion_id UUID NOT NULL,
+	applied_id UUID,
+	applied_entity VARCHAR(255),
+	CONSTRAINT fk_log_of_promotion FOREIGN KEY (promotion_id)
+        REFERENCES promotion(promotion_id) ON DELETE CASCADE,
+    -- Common for all table    
 	code VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -1197,7 +1231,7 @@ INSERT INTO wallet_transaction (wallet_transaction_id,wallet_id,amount,"type",de
 	 ('8701145e-d332-40fa-9523-a33e213b3aa2'::uuid,'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a'::uuid,-10000.00,'ORDER_DEDUCT','Payment for order 6dbef0e1-0105-4184-9ea0-d8ac03ee5a59 Using card d4e5f6a7-b8c9-4012-def0-4567890123de Pay by MAIN wallet b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a','6dbef0e1-0105-4184-9ea0-d8ac03ee5a59'::uuid,NULL,'WALL176367250411','2025-04-06 15:16:59.612259','2025-04-11 15:02:59.590567',false,false),
 	 ('36fbf53b-8ddf-4660-a893-ae231dd95e6f'::uuid,'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a'::uuid,-20000.00,'ORDER_DEDUCT','Payment for order 61a64bb2-c7ed-43fd-8cd7-130d15915b10 Using card d4e5f6a7-b8c9-4012-def0-4567890123de Pay by MAIN wallet b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a','61a64bb2-c7ed-43fd-8cd7-130d15915b10'::uuid,NULL,'WALL925957250411','2025-04-04 11:16:30.315592','2025-04-11 15:03:06.783937',false,false);
 INSERT INTO wallet_transaction (wallet_transaction_id,wallet_id,amount,"type",description,order_id,deposit_id,code,created_at,updated_at,is_deleted,is_suspended) VALUES
-	 ('7e2e5d7a-682f-4668-aab4-bb6c2965e0d3'::uuid,'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a'::uuid,-32700.00,'ORDER_DEDUCT','Payment for order cbd56508-5d09-4d80-939e-973f4a258252 Using card d4e5f6a7-b8c9-4012-def0-4567890123de Pay by MAIN wallet b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a','cbd56508-5d09-4d80-939e-973f4a258252'::uuid,NULL,'WALL742674250411','2025-04-04 18:59:42.040826','2025-04-11 15:03:12.104816',false,false);INSERT INTO promotion (promotion_id, detail, "type", code, is_suspended) VALUES
+	 ('7e2e5d7a-682f-4668-aab4-bb6c2965e0d3'::uuid,'b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a'::uuid,-32700.00,'ORDER_DEDUCT','Payment for order cbd56508-5d09-4d80-939e-973f4a258252 Using card d4e5f6a7-b8c9-4012-def0-4567890123de Pay by MAIN wallet b3f1c6d7-9a42-4bfb-89c8-8e4c1f52e23a','cbd56508-5d09-4d80-939e-973f4a258252'::uuid,NULL,'WALL742674250411','2025-04-04 18:59:42.040826','2025-04-11 15:03:12.104816',false,false);INSERT INTO promotion_mock (promotion_id, detail, "type", code, is_suspended) VALUES
 	('550e8400-e29b-41d4-a716-446655440000', '{"Percentage":10.5,"BonusWalletLifeTimeInHours":10,"AppliedDayOfWeek":"MON"}', 'DEPOSIT_PROMO_V1', 'MON_SPR2025', false),
 	('0f3e14a3-baa4-4c72-a912-3517ef6a8458',
 	'{"Percentage":12.5,"BonusWalletLifeTimeInHours":9,"AppliedDayOfWeek":"TUE"}', 'DEPOSIT_PROMO_V1', 'TUE_SPR2025', false),
@@ -1210,7 +1244,8 @@ INSERT INTO wallet_transaction (wallet_transaction_id,wallet_id,amount,"type",de
 	('4c5606c9-35e2-4427-a528-e16fa801027b','{"Percentage":15,"BonusWalletLifeTimeInHours":6,"AppliedDayOfWeek":"SAT"}', 'DEPOSIT_PROMO_V1', 'SAT_SPR2025', false),
 	('2b62f99c-118d-4c84-80dc-4cfa64a9f5da','{"Percentage":15,"BonusWalletLifeTimeInHours":6,"AppliedDayOfWeek":"SUN"}', 'DEPOSIT_PROMO_V1', 'SUN_SPR2025', false),
 	('550e8400-e29b-41d4-a716-446655440001', '{}', 'DEPOSIT_PROMO_V1', 'TEST_PROMOTION', true),
-	('550e8400-e29b-41d4-a716-446655440002', '{}', 'DEPOSIT_PROMO_V1', 'PROMO789', true);INSERT INTO inventory_note (inventory_note_id,store_id,staff_id,"type",image_url,"description",code)
+	('550e8400-e29b-41d4-a716-446655440002', '{}', 'DEPOSIT_PROMO_V1', 'PROMO789', true);
+INSERT INTO inventory_note (inventory_note_id,store_id,staff_id,"type",image_url,"description",code)
 VALUES
 	('69c89ae3-3d7f-44a1-bdcc-98df64f39486','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','d8d0e33a-a490-4fce-beee-fcad5eaef9a4','CHANGE','https://reinir.mooo.com/files/remi.jpg','Inventory change mock data','NOTE000000'),
 	('46fb8481-a0b4-43f4-8758-355b0d1f3bc5','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','d8d0e33a-a490-4fce-beee-fcad5eaef9a4','AUDIT','https://reinir.mooo.com/files/food.jpg','Inventory audit mock data','NOTE000001'),
@@ -1303,4 +1338,138 @@ INSERT INTO inventory_note_item (inventory_note_item_id,inventory_note_id,produc
 	 ('e4e5ab85-a0a3-4e93-bc81-2cb65bd96eb1'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'821d7427-cc07-4d9b-9dde-dea596a1e54c'::uuid,-40,70,'INVE031019250411','2025-04-11 14:34:41.35698','2025-04-11 14:34:41.35698',false,false),
 	 ('fa9f8870-494c-446a-810d-600d7bab1b6e'::uuid,'4041d74c-5eb8-4a88-9d9a-180e3921ec92'::uuid,'7080fe75-58f5-4e40-b5db-747f7ea5f0aa'::uuid,30,0,'INVE816131250411','2025-04-11 14:34:41.356946','2025-04-11 14:34:41.356946',false,false);
 
+DO $$
+DECLARE
+    i INTEGER := 1;
+	j INTEGER := 1;
+	img VARCHAR(255) := 'https://reinir.mooo.com/files/104b9d37-f1ae-4d51-b193-bec7c3cf41d0.jpg';
+	rand_date DATE;
+	rand_card UUID;
+	rand_device UUID;
+	rand_prod UUID;
+	prod_price DECIMAL(20,2);
+	default_price DECIMAL(20,2);
+	totl DECIMAL(20,2);
+	prod_count INTEGER;
+	item_count INTEGER;
+	new_order_id UUID;
+	rand_code VARCHAR(50);
+	
+BEGIN
+    WHILE i <= 18000 LOOP
+		-- Randomize day.
+		j := 1;
+		WHILE j <= 10 LOOP
+            rand_date := CURRENT_DATE - (FLOOR(RANDOM() * 60 + 1))::int;
+            EXIT WHEN EXTRACT(DOW FROM rand_date) BETWEEN 1 AND 5;
+            -- 0 = Sunday, 6 = Saturday; keep only 1–5 (Mon–Fri)
+			j := j + 1;
+        END LOOP;
+		
+		-- Too many order and some will have duplicated code
+		LOOP
+            rand_code := generate_code('ORDE');
+            EXIT WHEN NOT EXISTS (
+				SELECT 1 FROM "order" WHERE code = rand_code
+			);
+        END LOOP;
+		
+		-- Get random card
+		SELECT card_id into rand_card
+		FROM card c 
+		WHERE c.is_deleted = false 
+		ORDER BY RANDOM() LIMIT 1;
+		
+		-- Get random device
+		SELECT device_id INTO rand_device
+		FROM pos_device d WHERE d.is_deleted = false
+		ORDER BY RANDOM() LIMIT 1;
+		
+		INSERT INTO "order" (
+			card_id,
+			device_id,
+			status,
+			total,
+			image1,
+			image2,
+			image3,
+			created_at,
+			code)
+		VALUES (
+			rand_card,
+			rand_device,
+			'FINISHED',
+			0,
+			img,
+			img,
+			img,
+			rand_date,
+			rand_code)
+		RETURNING order_id 
+		INTO new_order_id;
+		
+		totl := 0;
+			
+		prod_count := FLOOR(RANDOM() * 3 + 1)::int;
+		
+		WHILE prod_count > 0 LOOP
+			-- Get random product
+			SELECT 
+				p.product_id, 
+				pis.price 
+			INTO
+				rand_prod,
+				prod_price
+			FROM 
+				product p 
+				JOIN product_in_store pis ON p.product_id = pis.product_id
+				JOIN pos_device pos ON pis.store_id = pos.store_id
+			WHERE 
+				p.is_deleted = false 
+				AND pos.device_id = rand_device
+			ORDER BY 
+				RANDOM() LIMIT 1;
+			
+			-- Sometime, device/store dont have product or price
+			IF rand_prod IS NULL THEN
+				SELECT 
+					p.product_id, 
+					p.base_price
+				INTO
+					rand_prod,
+					prod_price
+				FROM 
+					product p 
+				WHERE 
+					p.is_deleted = false 
+				ORDER BY 
+					RANDOM() LIMIT 1;
+			END IF;
+			
+			item_count := FLOOR(RANDOM() * 2 + 1)::int;
+			totl := totl + item_count * prod_price;
+			
+			-- Add order item
+			INSERT INTO order_item 
+				(order_id,
+				product_id,
+				count,
+				unit_price,
+				created_at)
+			VALUES
+				(new_order_id,
+				rand_prod,
+				item_count,
+				prod_price,
+				rand_date);
+			-- Counter
+			prod_count := prod_count - 1;
+		END LOOP;
+		
+
+		UPDATE "order" SET total = totl WHERE order_id = new_order_id;
+
+        i := i + 1;
+    END LOOP;
+END $$;
 COMMIT;

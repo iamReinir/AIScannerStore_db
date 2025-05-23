@@ -1,4 +1,4 @@
-INSERT INTO promotion (promotion_id, detail, "type", code, is_suspended) VALUES
+INSERT INTO promotion_mock (promotion_id, detail, "type", code, is_suspended) VALUES
 	('550e8400-e29b-41d4-a716-446655440000', '{"Percentage":10.5,"BonusWalletLifeTimeInHours":10,"AppliedDayOfWeek":"MON"}', 'DEPOSIT_PROMO_V1', 'MON_SPR2025', false),
 	('0f3e14a3-baa4-4c72-a912-3517ef6a8458',
 	'{"Percentage":12.5,"BonusWalletLifeTimeInHours":9,"AppliedDayOfWeek":"TUE"}', 'DEPOSIT_PROMO_V1', 'TUE_SPR2025', false),

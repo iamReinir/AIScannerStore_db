@@ -46,5 +46,5 @@ INSERT INTO pos_device (device_id,store_id,hashed_token,expire_at,code,created_a
 	 ('d1c81ca4-7b83-4bd3-998c-a6ce6f87f914'::uuid,'d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444'::uuid,'AQAAAAIAAYagAAAAECflozYIUqKKdzPD+MKZaLHWR4ew9TeVPNkSNjFnBongBH+4iJQ2nOMHNVY4FN+nMw==','2025-05-08 10:32:09.448916','STORE4_DEV2','2025-04-08 10:32:09.28926','2025-04-08 10:32:09.448922',false,false);
 	 
 INSERT INTO pos_device (device_id,store_id,hashed_token,expire_at,code,created_at,updated_at,is_deleted,is_suspended) VALUES
-	 ('a33cfc20-a4b2-46b2-a00b-1e71b23b1d6a'::uuid,'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'AQAAAAIAAYagAAAAEGtDK2bVGIixDnaTXv/h1hNOP6oLwQXefytgBWnvAo4PEYCDru08mwpqt5DONsaWYw==','2025-05-22 00:02:47.464758','POS00000002','2025-04-22 00:02:47.321867','2025-04-22 00:02:47.464818',false,false);
+	 ('a33cfc20-a4b2-46b2-a00b-1e71b23b1d6a'::uuid,'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'AQAAAAIAAYagAAAAEMY8sXfs5LUw2b3zEBeCtlKaLYmlZZymU22XRKKpy6yyCo92tWHeaoyrGumAT8sD5w==','2025-06-21 10:45:49.345','POS00000002','2025-04-22 00:02:47.321867','2025-05-22 10:45:49.345',false,false);
 

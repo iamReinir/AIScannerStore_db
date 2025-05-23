@@ -7,4 +7,8 @@ INSERT INTO staff (staff_id, staff_name, staff_phone, staff_email, "role", passw
     ('d8d0e33a-a490-4fce-beee-fcad5eaef9a3', 'TrungNX', NULL, 'trungnx@aistore.com', 'IT_HD', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'STAF222394028'),
 	('d8d0e33a-a490-4fce-beee-fcad5eaef9a4', 'TrungNX', NULL, 'blackwhitenxt@gmail.com', 'STORE_MANAGER', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'STAF29382910')
     ;
+	
+INSERT INTO staff (staff_id,staff_name,staff_phone,staff_email,password_hash,"role",store_id,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('0196f63a-91a8-7cfa-9997-d6d807bb472e'::uuid,'Loi','12345678','dongloi2504@gmail.com','AQAAAAIAAYagAAAAEATcfuXB7+Q9j0PttLb4Jzq7yZ8+QlYDWVMghkwjhcvS618+WUHn376eg2rwmzdsDw==','STORE_MANAGER','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'123','2025-05-22 11:22:35.52262','2025-05-22 11:22:35.52262',false,false);
+
 

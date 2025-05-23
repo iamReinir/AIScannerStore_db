@@ -3,6 +3,7 @@ CREATE TABLE deposit (
     customer_id UUID NOT NULL,
     amount NUMERIC(20,2),
 	status VARCHAR(50),
+	applied_promotion UUID,
     CONSTRAINT fk_deposit_of_customer FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,
     -- Common for all table
 	code VARCHAR(255) UNIQUE,
