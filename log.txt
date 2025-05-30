@@ -1,0 +1,161 @@
+Creating init_db.sql...
+Generate database script
+initializing database...
+BEGIN
+psql:init_db.sql:10: NOTICE:  drop cascades to 4 other objects
+DETAIL:  drop cascades to constraint fk_pos_of_store on table pos_device
+drop cascades to constraint fk_manager_of_store on table staff
+drop cascades to constraint fk_inventory_of_store on table product_in_store
+drop cascades to constraint fk_inventory_log on table inventory_note
+psql:init_db.sql:10: NOTICE:  drop cascades to constraint fk_order_from_device on table "order"
+psql:init_db.sql:10: NOTICE:  drop cascades to 3 other objects
+DETAIL:  drop cascades to constraint fk_manual_order on table "order"
+drop cascades to constraint fk_inv_log_of_staff on table inventory_note
+drop cascades to constraint fk_staff_answer_edit_request on table order_edit_request
+psql:init_db.sql:10: NOTICE:  drop cascades to constraint fk_product_of_category on table product
+psql:init_db.sql:10: NOTICE:  drop cascades to 4 other objects
+DETAIL:  drop cascades to constraint fk_drink_mapping on table drink_mapping
+drop cascades to constraint fk_food_mapping on table food_mapping
+drop cascades to constraint fk_product_in_inventory on table product_in_store
+drop cascades to constraint fk_product_of_order_item on table order_item
+psql:init_db.sql:10: NOTICE:  drop cascades to 7 other objects
+DETAIL:  drop cascades to constraint fk_deposit_of_customer on table deposit
+drop cascades to constraint fk_card_of_customer on table card
+drop cascades to constraint fk_wallet_of_customer on table wallet
+drop cascades to constraint fk_promo_of_customer on table promotion
+drop cascades to constraint fk_attempt_of_customer on table password_reset_attempt
+drop cascades to constraint fk_attempt_of_customer on table email_confirm_attempt
+drop cascades to constraint fk_edit_request_of_customer on table order_edit_request
+psql:init_db.sql:10: NOTICE:  drop cascades to 2 other objects
+DETAIL:  drop cascades to constraint fk_transaction_of_deposit on table wallet_transaction
+drop cascades to constraint fk_vnp_transaction_of_deposit on table vnp_transaction
+psql:init_db.sql:10: NOTICE:  drop cascades to constraint fk_order_of_card on table "order"
+psql:init_db.sql:10: NOTICE:  drop cascades to 3 other objects
+DETAIL:  drop cascades to constraint fk_transaction_of_order on table wallet_transaction
+drop cascades to constraint fk_item_of_order on table order_item
+drop cascades to constraint fk_edit_request_for_order on table order_edit_request
+psql:init_db.sql:10: NOTICE:  drop cascades to constraint fk_inv_log on table inventory_note_item
+DO
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+psql:init_db.sql:10: NOTICE:  drop cascades to constraint fk_inventory_note_item on table inventory_note_item
+psql:init_db.sql:10: NOTICE:  drop cascades to constraint fk_transaction_of_wallet on table wallet_transaction
+psql:init_db.sql:10: NOTICE:  drop cascades to constraint fk_log_of_promotion on table promotion_log
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 6
+INSERT 0 24
+INSERT 0 11
+INSERT 0 12
+INSERT 0 15
+INSERT 0 10
+INSERT 0 9
+INSERT 0 1
+INSERT 0 6
+INSERT 0 1
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 2
+INSERT 0 10
+INSERT 0 10
+INSERT 0 2
+INSERT 0 11
+INSERT 0 10
+INSERT 0 4
+INSERT 0 1
+INSERT 0 7
+INSERT 0 3
+INSERT 0 6
+INSERT 0 11
+INSERT 0 11
+INSERT 0 11
+INSERT 0 11
+INSERT 0 11
+INSERT 0 11
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 5
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 1
+INSERT 0 10
+INSERT 0 8
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 1
+INSERT 0 10
+INSERT 0 10
+INSERT 0 5
+INSERT 0 3
+INSERT 0 5
+INSERT 0 6
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 8
+INSERT 0 2
+INSERT 0 9
+INSERT 0 2
+INSERT 0 10
+INSERT 0 10
+INSERT 0 5
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 1
+INSERT 0 9
+INSERT 0 5
+INSERT 0 1
+INSERT 0 10
+INSERT 0 10
+INSERT 0 4
+INSERT 0 5
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 9
+DO
+COMMIT
+Press any key to close...

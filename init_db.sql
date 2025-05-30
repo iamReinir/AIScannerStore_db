@@ -509,7 +509,7 @@ INSERT INTO pos_device (device_id,store_id,hashed_token,expire_at,code,created_a
 	 ('d1c81ca4-7b83-4bd3-998c-a6ce6f87f914'::uuid,'d4a6b9e2-7c14-44e2-8b71-5f2c3a1c4444'::uuid,'AQAAAAIAAYagAAAAECflozYIUqKKdzPD+MKZaLHWR4ew9TeVPNkSNjFnBongBH+4iJQ2nOMHNVY4FN+nMw==','2025-05-08 10:32:09.448916','STORE4_DEV2','2025-04-08 10:32:09.28926','2025-04-08 10:32:09.448922',false,false);
 	 
 INSERT INTO pos_device (device_id,store_id,hashed_token,expire_at,code,created_at,updated_at,is_deleted,is_suspended) VALUES
-	 ('a33cfc20-a4b2-46b2-a00b-1e71b23b1d6a'::uuid,'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'AQAAAAIAAYagAAAAEGtDK2bVGIixDnaTXv/h1hNOP6oLwQXefytgBWnvAo4PEYCDru08mwpqt5DONsaWYw==','2025-05-22 00:02:47.464758','POS00000002','2025-04-22 00:02:47.321867','2025-04-22 00:02:47.464818',false,false);
+	 ('a33cfc20-a4b2-46b2-a00b-1e71b23b1d6a'::uuid,'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'AQAAAAIAAYagAAAAEMY8sXfs5LUw2b3zEBeCtlKaLYmlZZymU22XRKKpy6yyCo92tWHeaoyrGumAT8sD5w==','2025-06-21 10:45:49.345','POS00000002','2025-04-22 00:02:47.321867','2025-05-22 10:45:49.345',false,false);
 
 INSERT INTO staff (staff_id, staff_name, staff_phone, staff_email, "role", password_hash, store_id, code) 
     VALUES
@@ -520,6 +520,9 @@ INSERT INTO staff (staff_id, staff_name, staff_phone, staff_email, "role", passw
     ('d8d0e33a-a490-4fce-beee-fcad5eaef9a3', 'TrungNX', NULL, 'trungnx@aistore.com', 'IT_HD', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'STAF222394028'),
 	('d8d0e33a-a490-4fce-beee-fcad5eaef9a4', 'TrungNX', NULL, 'blackwhitenxt@gmail.com', 'STORE_MANAGER', 'AQAAAAIAAYagAAAAEDeblKGnP3xHJN4TpGfQGq24utN+HlV3/X9i7CMzZ5lPohJJHUZbjvOK+mJ+bfIhZg==', 'a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111', 'STAF29382910')
     ;
+	
+INSERT INTO staff (staff_id,staff_name,staff_phone,staff_email,password_hash,"role",store_id,code,created_at,updated_at,is_deleted,is_suspended) VALUES
+	 ('0196f63a-91a8-7cfa-9997-d6d807bb472e'::uuid,'Loi','12345678','dongloi2504@gmail.com','AQAAAAIAAYagAAAAEATcfuXB7+Q9j0PttLb4Jzq7yZ8+QlYDWVMghkwjhcvS618+WUHn376eg2rwmzdsDw==','STORE_MANAGER','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'123','2025-05-22 11:22:35.52262','2025-05-22 11:22:35.52262',false,false);
 
 INSERT INTO product_in_store (product_in_store_id,store_id,product_id,price,stock,code,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('fffc5db9-dc6e-43e8-9b29-8b500791f35f','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111','a1b2c3d4-5678-90ab-cdef-123456789004',19900.00,30,NULL,'2025-04-09 09:55:28.15435','2025-04-09 09:55:28.15435',false,false),

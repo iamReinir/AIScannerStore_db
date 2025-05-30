@@ -1,5 +1,4 @@
 #!/bin/bash
-cd ~/AIScannerStore_db
 OUTPUT_FILE="init_db.sql"
 echo "Generate database script"
 

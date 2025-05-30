@@ -11,4 +11,3 @@ INSERT INTO staff (staff_id, staff_name, staff_phone, staff_email, "role", passw
 INSERT INTO staff (staff_id,staff_name,staff_phone,staff_email,password_hash,"role",store_id,code,created_at,updated_at,is_deleted,is_suspended) VALUES
 	 ('0196f63a-91a8-7cfa-9997-d6d807bb472e'::uuid,'Loi','12345678','dongloi2504@gmail.com','AQAAAAIAAYagAAAAEATcfuXB7+Q9j0PttLb4Jzq7yZ8+QlYDWVMghkwjhcvS618+WUHn376eg2rwmzdsDw==','STORE_MANAGER','a1e2f8c4-4c1b-4f2a-bf71-1f3c7a1b1111'::uuid,'123','2025-05-22 11:22:35.52262','2025-05-22 11:22:35.52262',false,false);
 
-
